@@ -22,3 +22,14 @@
 hs_err_pid*
 
 *.pdf
+/Practica 3/Practica3/nbproject/private/
+/Practica 3/Practica3/build/
+*.xml
+
+*.mf
+
+*.properties
+
+*.form
+
+Practica 4/\.DS_Store
