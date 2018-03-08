@@ -30,8 +30,6 @@ hs_err_pid*
 
 *.properties
 
-*.form
-
 *.DS_Store
 /Practica 3/Practica3_Ej2/nbproject/private/
 /Practica 3/Practica3_Ej2/build/
