@@ -19,6 +19,8 @@ public class Lienzo extends javax.swing.JPanel {
     Point pf = new Point(0,0);
     
     Color color = Color.BLACK;
+    Formas forma = Formas.Punto;
+    boolean relleno = false;   
     
     public Lienzo() {
         initComponents();
@@ -30,7 +32,38 @@ public class Lienzo extends javax.swing.JPanel {
         super.paint(g);
         // Cambiar el color cuando se pulse
         g.setColor(color);
-        g.drawLine(pi.x,pi.y,pf.x,pf.y);
+        
+        if(relleno){
+            switch(forma){
+                case Punto:
+                    g.fillOval(pi.x, pi.y, 5, 5);
+                    break;
+                case Linea:
+                    g.drawLine(pi.x,pi.y,pf.x,pf.y);
+                    break;
+                case Rectangulo:
+                    g.fillRect(pi.x, pi.y, pf.x, pf.y);
+                    break;
+                case Ovalo:
+                    g.fillOval(pi.x, pi.y, pf.x, pf.y);
+                    break;
+            }
+        }else{
+            switch(forma){
+                case Punto:
+                    g.fillOval(pi.x, pi.y, 5, 5);
+                    break;
+                case Linea:
+                    g.drawLine(pi.x,pi.y,pf.x,pf.y);
+                    break;
+                case Rectangulo:
+                    g.drawRect(pi.x, pi.y, pf.x, pf.y);
+                    break;
+                case Ovalo:
+                    g.drawOval(pi.x, pi.y, pf.x, pf.y);
+                    break;
+            }
+        }
     }
     
     @SuppressWarnings("unchecked")
@@ -66,13 +99,28 @@ public class Lienzo extends javax.swing.JPanel {
             .addGap(0, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    public void setForma(Formas f){
+        this.forma = f;
+    }
+    
+    public Formas getForma(){
+        return this.forma;
+    }
+    
     public void setColor(Color c){
         this.color = c;
     }
     
     public Color getColor(){
         return this.color;
+    }
+    
+    public void setRelleno(boolean relleno){
+        this.relleno = relleno;
+    }
+    
+    public boolean getRelleno(){
+        return this.relleno;
     }
     
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
@@ -82,7 +130,6 @@ public class Lienzo extends javax.swing.JPanel {
 
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
         pi = evt.getPoint();
-        this.repaint();
     }//GEN-LAST:event_formMousePressed
 
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
