@@ -35,15 +35,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         botonOvalo = new javax.swing.JToggleButton();
         PanelInferior = new javax.swing.JPanel();
         PanelColores = new javax.swing.JPanel();
-        jToggleButton1 = new javax.swing.JToggleButton();
-        jToggleButton2 = new javax.swing.JToggleButton();
-        jToggleButton3 = new javax.swing.JToggleButton();
-        jToggleButton4 = new javax.swing.JToggleButton();
-        jToggleButton5 = new javax.swing.JToggleButton();
-        jToggleButton6 = new javax.swing.JToggleButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        botonNegro = new javax.swing.JToggleButton();
+        botonRojo = new javax.swing.JToggleButton();
+        botonAzul = new javax.swing.JToggleButton();
+        botonBlanco = new javax.swing.JToggleButton();
+        botonVerde = new javax.swing.JToggleButton();
+        botonAmarillo = new javax.swing.JToggleButton();
+        checkBoxRelleno = new javax.swing.JCheckBox();
         lienzo1 = new aplicacion.Lienzo();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        MenuSuperior = new javax.swing.JMenuBar();
         archivo = new javax.swing.JMenu();
         nuevo = new javax.swing.JMenuItem();
         abrir = new javax.swing.JMenuItem();
@@ -53,17 +53,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        barraestados.setText("jLabel1");
+        barraestados.setText("Texto");
+        barraestados.setToolTipText("Modo de pintura");
         getContentPane().add(barraestados, java.awt.BorderLayout.PAGE_END);
 
         PanelCentral.setLayout(new java.awt.BorderLayout());
 
         PanelSuperior.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
+        Herramientas.setBorder(null);
+        Herramientas.setFloatable(false);
         Herramientas.setRollover(true);
+        Herramientas.setBorderPainted(false);
+        Herramientas.setPreferredSize(new java.awt.Dimension(150, 40));
 
         botonesHerramientas.add(botonPunto);
         botonPunto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Lapiz.gif"))); // NOI18N
+        botonPunto.setSelected(true);
+        botonPunto.setToolTipText("Dibujar puntos");
         botonPunto.setFocusable(false);
         botonPunto.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         botonPunto.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -76,6 +83,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         botonesHerramientas.add(botonLinea);
         botonLinea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Linea.gif"))); // NOI18N
+        botonLinea.setToolTipText("Dibujar líneas");
         botonLinea.setFocusable(false);
         botonLinea.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         botonLinea.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -83,6 +91,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         botonesHerramientas.add(botonCuadrado);
         botonCuadrado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Rectangulo.gif"))); // NOI18N
+        botonCuadrado.setToolTipText("Dibujar Rectangulos");
         botonCuadrado.setFocusable(false);
         botonCuadrado.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         botonCuadrado.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -90,6 +99,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         botonesHerramientas.add(botonOvalo);
         botonOvalo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Ovalo.gif"))); // NOI18N
+        botonOvalo.setToolTipText("Dibujar Ovalo");
         botonOvalo.setFocusable(false);
         botonOvalo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         botonOvalo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -99,41 +109,68 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         PanelCentral.add(PanelSuperior, java.awt.BorderLayout.PAGE_START);
 
-        PanelInferior.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        PanelInferior.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        PanelInferior.setPreferredSize(new java.awt.Dimension(210, 61));
+        PanelInferior.setLayout(new java.awt.BorderLayout());
 
-        jToggleButton1.setBackground(new java.awt.Color(0, 0, 0));
-        botonesColores.add(jToggleButton1);
-        PanelColores.add(jToggleButton1);
+        PanelColores.setPreferredSize(new java.awt.Dimension(100, 40));
 
-        botonesColores.add(jToggleButton2);
-        PanelColores.add(jToggleButton2);
+        botonNegro.setBackground(new java.awt.Color(0, 0, 0));
+        botonesColores.add(botonNegro);
+        botonNegro.setSelected(true);
+        botonNegro.setToolTipText("Negro");
+        botonNegro.setPreferredSize(new java.awt.Dimension(25, 20));
+        PanelColores.add(botonNegro);
 
-        botonesColores.add(jToggleButton3);
-        PanelColores.add(jToggleButton3);
+        botonRojo.setBackground(new java.awt.Color(238, 0, 0));
+        botonesColores.add(botonRojo);
+        botonRojo.setToolTipText("Rojo");
+        botonRojo.setPreferredSize(new java.awt.Dimension(25, 20));
+        PanelColores.add(botonRojo);
 
-        botonesColores.add(jToggleButton4);
-        PanelColores.add(jToggleButton4);
+        botonAzul.setBackground(new java.awt.Color(0, 0, 238));
+        botonesColores.add(botonAzul);
+        botonAzul.setToolTipText("Azul");
+        botonAzul.setPreferredSize(new java.awt.Dimension(25, 20));
+        PanelColores.add(botonAzul);
 
-        botonesColores.add(jToggleButton5);
-        PanelColores.add(jToggleButton5);
-        PanelColores.add(jToggleButton6);
+        botonBlanco.setBackground(new java.awt.Color(255, 255, 255));
+        botonesColores.add(botonBlanco);
+        botonBlanco.setToolTipText("Blanco");
+        botonBlanco.setPreferredSize(new java.awt.Dimension(25, 20));
+        PanelColores.add(botonBlanco);
 
-        PanelInferior.add(PanelColores);
+        botonVerde.setBackground(new java.awt.Color(108, 255, 0));
+        botonesColores.add(botonVerde);
+        botonVerde.setToolTipText("Verde");
+        botonVerde.setPreferredSize(new java.awt.Dimension(25, 20));
+        PanelColores.add(botonVerde);
 
-        jCheckBox1.setText("jCheckBox1");
-        PanelInferior.add(jCheckBox1);
+        botonAmarillo.setBackground(new java.awt.Color(255, 255, 0));
+        botonesColores.add(botonAmarillo);
+        botonAmarillo.setToolTipText("Amarillo");
+        botonAmarillo.setPreferredSize(new java.awt.Dimension(25, 20));
+        PanelColores.add(botonAmarillo);
+
+        PanelInferior.add(PanelColores, java.awt.BorderLayout.LINE_START);
+
+        checkBoxRelleno.setText("Relleno");
+        checkBoxRelleno.setToolTipText("");
+        PanelInferior.add(checkBoxRelleno, java.awt.BorderLayout.LINE_END);
 
         PanelCentral.add(PanelInferior, java.awt.BorderLayout.PAGE_END);
+
+        lienzo1.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout lienzo1Layout = new javax.swing.GroupLayout(lienzo1);
         lienzo1.setLayout(lienzo1Layout);
         lienzo1Layout.setHorizontalGroup(
             lienzo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 875, Short.MAX_VALUE)
+            .addGap(0, 627, Short.MAX_VALUE)
         );
         lienzo1Layout.setVerticalGroup(
             lienzo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 284, Short.MAX_VALUE)
+            .addGap(0, 268, Short.MAX_VALUE)
         );
 
         PanelCentral.add(lienzo1, java.awt.BorderLayout.CENTER);
@@ -141,6 +178,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         getContentPane().add(PanelCentral, java.awt.BorderLayout.CENTER);
 
         archivo.setText("Archivo");
+        archivo.setToolTipText("");
 
         nuevo.setText("Nuevo");
         archivo.add(nuevo);
@@ -151,7 +189,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         guardar.setText("Guardar");
         archivo.add(guardar);
 
-        jMenuBar1.add(archivo);
+        MenuSuperior.add(archivo);
 
         edicion.setText("Edición");
 
@@ -159,9 +197,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         verbarra.setText("Ver barra de estado");
         edicion.add(verbarra);
 
-        jMenuBar1.add(edicion);
+        MenuSuperior.add(edicion);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(MenuSuperior);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -173,6 +211,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToolBar Herramientas;
+    private javax.swing.JMenuBar MenuSuperior;
     private javax.swing.JPanel PanelCentral;
     private javax.swing.JPanel PanelColores;
     private javax.swing.JPanel PanelInferior;
@@ -180,22 +219,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem abrir;
     private javax.swing.JMenu archivo;
     private javax.swing.JLabel barraestados;
+    private javax.swing.JToggleButton botonAmarillo;
+    private javax.swing.JToggleButton botonAzul;
+    private javax.swing.JToggleButton botonBlanco;
     private javax.swing.JToggleButton botonCuadrado;
     private javax.swing.JToggleButton botonLinea;
+    private javax.swing.JToggleButton botonNegro;
     private javax.swing.JToggleButton botonOvalo;
     private javax.swing.JToggleButton botonPunto;
+    private javax.swing.JToggleButton botonRojo;
+    private javax.swing.JToggleButton botonVerde;
     private javax.swing.ButtonGroup botonesColores;
     private javax.swing.ButtonGroup botonesHerramientas;
+    private javax.swing.JCheckBox checkBoxRelleno;
     private javax.swing.JMenu edicion;
     private javax.swing.JMenuItem guardar;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JToggleButton jToggleButton1;
-    private javax.swing.JToggleButton jToggleButton2;
-    private javax.swing.JToggleButton jToggleButton3;
-    private javax.swing.JToggleButton jToggleButton4;
-    private javax.swing.JToggleButton jToggleButton5;
-    private javax.swing.JToggleButton jToggleButton6;
     private aplicacion.Lienzo lienzo1;
     private javax.swing.JMenuItem nuevo;
     private javax.swing.JCheckBoxMenuItem verbarra;
