@@ -74,11 +74,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         botonPunto.setFocusable(false);
         botonPunto.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         botonPunto.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        botonPunto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonPuntoActionPerformed(evt);
-            }
-        });
         Herramientas.add(botonPunto);
 
         botonesHerramientas.add(botonLinea);
@@ -203,10 +198,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void botonPuntoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPuntoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonPuntoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
