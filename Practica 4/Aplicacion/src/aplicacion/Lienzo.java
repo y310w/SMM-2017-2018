@@ -15,8 +15,9 @@ import java.awt.Point;
  */
 public class Lienzo extends javax.swing.JPanel {
 
-    Point pi = new Point(0,0);
-    Point pf = new Point(0,0);
+    Point pi;
+    Point pf;
+    Point pmouse;
     
     Color color = Color.BLACK;
     Formas forma = Formas.Punto;
@@ -24,43 +25,75 @@ public class Lienzo extends javax.swing.JPanel {
     
     public Lienzo() {
         initComponents();
-        
     }
 
     @Override
     public void paint(Graphics g){
+        int x, y, ancho, alto;
         super.paint(g);
-        // Cambiar el color cuando se pulse
+   
         g.setColor(color);
         
         if(relleno){
             switch(forma){
-                case Punto:
-                    g.fillOval(pi.x, pi.y, 5, 5);
-                    break;
-                case Linea:
-                    g.drawLine(pi.x,pi.y,pf.x,pf.y);
-                    break;
                 case Rectangulo:
-                    g.fillRect(pi.x, pi.y, pf.x, pf.y);
+                    if(pi == null && pf == null)
+                        break;
+                    
+                    x = Math.min(this.pi.x, this.pf.x);
+                    y = Math.min(this.pi.y, this.pf.y);
+                    ancho = Math.abs(this.pi.x - this.pf.x);
+                    alto = Math.abs(this.pi.y - this.pf.y);
+                    
+                    g.fillRect(x, y, ancho, alto);
                     break;
                 case Ovalo:
-                    g.fillOval(pi.x, pi.y, pf.x, pf.y);
+                    if(pi == null && pf == null)
+                        break;
+                    
+                    x = Math.min(this.pi.x, this.pf.x);
+                    y = Math.min(this.pi.y, this.pf.y);
+                    ancho = Math.abs(this.pi.x - this.pf.x);
+                    alto = Math.abs(this.pi.y - this.pf.y);
+                    
+                    g.fillOval(x, y, ancho, alto);
                     break;
             }
         }else{
             switch(forma){
                 case Punto:
-                    g.fillOval(pi.x, pi.y, 5, 5);
-                    break;
+                    if(this.pmouse == null)
+                        break;
+                    else
+                        g.fillOval(this.pmouse.x, this.pmouse.y, 4, 4);
+                        break;
                 case Linea:
-                    g.drawLine(pi.x,pi.y,pf.x,pf.y);
-                    break;
+                    if(this.pi == null && this.pf == null)
+                        break;
+                    else
+                        g.drawLine(this.pi.x, this.pi.y, this.pf.x, this.pf.y);
+                        break;
                 case Rectangulo:
-                    g.drawRect(pi.x, pi.y, pf.x, pf.y);
+                    if(pi == null && pf == null)
+                        break;
+                    
+                    x = Math.min(this.pi.x, this.pf.x);
+                    y = Math.min(this.pi.y, this.pf.y);
+                    ancho = Math.abs(this.pi.x - this.pf.x);
+                    alto = Math.abs(this.pi.y - this.pf.y);
+                    
+                    g.drawRect(x, y, ancho, alto);
                     break;
                 case Ovalo:
-                    g.drawOval(pi.x, pi.y, pf.x, pf.y);
+                    if(pi == null && pf == null)
+                        break;
+                    
+                    x = Math.min(this.pi.x, this.pf.x);
+                    y = Math.min(this.pi.y, this.pf.y);
+                    ancho = Math.abs(this.pi.x - this.pf.x);
+                    alto = Math.abs(this.pi.y - this.pf.y);
+                    
+                    g.drawOval(x, y, ancho, alto);
                     break;
             }
         }
@@ -123,22 +156,29 @@ public class Lienzo extends javax.swing.JPanel {
         return this.relleno;
     }
     
+    public void LimpiarLienzo(){
+        this.pi = null;
+        this.pf = null;
+        this.pmouse = null;
+    }
+    
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-        pi = evt.getPoint();
+        this.pmouse = evt.getPoint();
         this.repaint();
     }//GEN-LAST:event_formMouseClicked
 
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
-        pi = evt.getPoint();
+        this.pi = evt.getPoint();
+        this.repaint();
     }//GEN-LAST:event_formMousePressed
 
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
-        pf = evt.getPoint();
+        this.pf = evt.getPoint();
         this.repaint();
     }//GEN-LAST:event_formMouseDragged
 
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
-        pf = evt.getPoint();
+        this.pf = evt.getPoint();
         this.repaint();
     }//GEN-LAST:event_formMouseReleased
 

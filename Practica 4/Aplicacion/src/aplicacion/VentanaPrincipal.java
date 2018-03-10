@@ -6,6 +6,8 @@
 package aplicacion;
 
 import static aplicacion.Formas.*;
+import java.io.File;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -211,8 +213,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         PanelCentral.add(PanelInferior, java.awt.BorderLayout.PAGE_END);
 
-        lienzo.setBackground(new java.awt.Color(255, 255, 255));
-
         javax.swing.GroupLayout lienzoLayout = new javax.swing.GroupLayout(lienzo);
         lienzo.setLayout(lienzoLayout);
         lienzoLayout.setHorizontalGroup(
@@ -276,19 +276,28 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoActionPerformed
-        // TODO add your handling code here:
+        this.lienzo.LimpiarLienzo();
+        this.lienzo.repaint();
     }//GEN-LAST:event_nuevoActionPerformed
 
     private void abrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirActionPerformed
-        // TODO add your handling code here:
+        JFileChooser dlg = new JFileChooser();
+            int resp = dlg.showOpenDialog(this);
+            if( resp == JFileChooser.APPROVE_OPTION) {
+                File f = dlg.getSelectedFile();
+            }
     }//GEN-LAST:event_abrirActionPerformed
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
-        // TODO add your handling code here:
+        JFileChooser dlg = new JFileChooser();
+            int resp = dlg.showSaveDialog(this);
+            if( resp == JFileChooser.APPROVE_OPTION) {
+                File f = dlg.getSelectedFile();
+            }
     }//GEN-LAST:event_guardarActionPerformed
 
     private void verbarraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verbarraActionPerformed
-        // TODO add your handling code here:
+        this.barraestados.setVisible(this.verbarra.isSelected());
     }//GEN-LAST:event_verbarraActionPerformed
 
     private void botonPuntoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPuntoActionPerformed
@@ -336,7 +345,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_botonAmarilloActionPerformed
 
     private void checkBoxRellenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxRellenoActionPerformed
-
+        this.lienzo.setRelleno(this.checkBoxRelleno.isSelected());
     }//GEN-LAST:event_checkBoxRellenoActionPerformed
 
 
