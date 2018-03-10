@@ -36,6 +36,18 @@ public class Lienzo extends javax.swing.JPanel {
         
         if(relleno){
             switch(forma){
+                case Punto:
+                    if(this.pmouse == null)
+                        break;
+                    else
+                        g.fillOval(this.pmouse.x-4, this.pmouse.y-4, 4, 4);
+                        break;
+                case Linea:
+                    if(this.pi == null && this.pf == null)
+                        break;
+                    else
+                        g.drawLine(this.pi.x, this.pi.y, this.pf.x, this.pf.y);
+                        break;
                 case Rectangulo:
                     if(pi == null && pf == null)
                         break;
@@ -65,7 +77,7 @@ public class Lienzo extends javax.swing.JPanel {
                     if(this.pmouse == null)
                         break;
                     else
-                        g.fillOval(this.pmouse.x, this.pmouse.y, 4, 4);
+                        g.fillOval(this.pmouse.x-5, this.pmouse.y-5, 4, 4);
                         break;
                 case Linea:
                     if(this.pi == null && this.pf == null)
@@ -169,7 +181,6 @@ public class Lienzo extends javax.swing.JPanel {
 
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
         this.pi = evt.getPoint();
-        this.repaint();
     }//GEN-LAST:event_formMousePressed
 
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
