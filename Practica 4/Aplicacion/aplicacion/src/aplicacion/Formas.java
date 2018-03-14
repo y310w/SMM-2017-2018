@@ -10,5 +10,5 @@ package aplicacion;
  * @author thejoker
  */
 public enum Formas {
-    Punto, Linea, Rectangulo, Ovalo;
+    Punto, Linea, Rectangulo, Ovalo, RectanguloRelleno, OvaloRelleno;
 }

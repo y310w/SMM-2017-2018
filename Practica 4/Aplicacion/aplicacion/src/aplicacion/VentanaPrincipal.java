@@ -311,12 +311,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_botonLineaActionPerformed
 
     private void botonCuadradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCuadradoActionPerformed
-        this.lienzo.setForma(Rectangulo);
+        if(this.lienzo.getRelleno())
+            this.lienzo.setForma(RectanguloRelleno);
+        else
+            this.lienzo.setForma(Rectangulo);
         this.barraestados.setText("Rectangulo");
     }//GEN-LAST:event_botonCuadradoActionPerformed
 
     private void botonOvaloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonOvaloActionPerformed
-        this.lienzo.setForma(Ovalo);
+        if(this.lienzo.getRelleno())
+            this.lienzo.setForma(OvaloRelleno);
+        else
+            this.lienzo.setForma(Ovalo);
         this.barraestados.setText("Ovalo");
     }//GEN-LAST:event_botonOvaloActionPerformed
 

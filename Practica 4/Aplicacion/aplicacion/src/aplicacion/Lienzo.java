@@ -15,13 +15,13 @@ import java.awt.Point;
  */
 public class Lienzo extends javax.swing.JPanel {
 
-    Point pi;
-    Point pf;
-    Point pmouse;
+    Point pi = new Point(-100,-100);
+    Point pf = new Point(-100,-100);
+    Point pmouse = new Point(-100,-100);
     
     Color color = Color.BLACK;
     Formas forma = Formas.Punto;
-    boolean relleno = false;   
+    boolean relleno;   
     
     public Lienzo() {
         initComponents();
@@ -29,85 +29,49 @@ public class Lienzo extends javax.swing.JPanel {
 
     @Override
     public void paint(Graphics g){
-        int x, y, ancho, alto;
+        int ejex, ejey, ancho, alto;
         super.paint(g);
    
         g.setColor(color);
         
-        if(relleno){
-            switch(forma){
-                case Punto:
-                    if(this.pmouse == null)
-                        break;
-                    else
-                        g.fillOval(this.pmouse.x-4, this.pmouse.y-4, 4, 4);
-                        break;
-                case Linea:
-                    if(this.pi == null && this.pf == null)
-                        break;
-                    else
-                        g.drawLine(this.pi.x, this.pi.y, this.pf.x, this.pf.y);
-                        break;
-                case Rectangulo:
-                    if(pi == null && pf == null)
-                        break;
-                    
-                    x = Math.min(this.pi.x, this.pf.x);
-                    y = Math.min(this.pi.y, this.pf.y);
-                    ancho = Math.abs(this.pi.x - this.pf.x);
-                    alto = Math.abs(this.pi.y - this.pf.y);
-                    
-                    g.fillRect(x, y, ancho, alto);
+        ejex = Math.min(this.pi.x, this.pf.x);
+        ejey = Math.min(this.pi.y, this.pf.y);
+        ancho = Math.abs(this.pi.x - this.pf.x);
+        alto = Math.abs(this.pi.y - this.pf.y);
+              
+        switch(forma){
+            case Punto:
+                if(this.pmouse == null)
                     break;
-                case Ovalo:
-                    if(pi == null && pf == null)
-                        break;
-                    
-                    x = Math.min(this.pi.x, this.pf.x);
-                    y = Math.min(this.pi.y, this.pf.y);
-                    ancho = Math.abs(this.pi.x - this.pf.x);
-                    alto = Math.abs(this.pi.y - this.pf.y);
-                    
-                    g.fillOval(x, y, ancho, alto);
+                else
+                    g.fillOval(this.pmouse.x-4, this.pmouse.y-4, 4, 4);
                     break;
-            }
-        }else{
-            switch(forma){
-                case Punto:
-                    if(this.pmouse == null)
-                        break;
-                    else
-                        g.fillOval(this.pmouse.x-5, this.pmouse.y-5, 4, 4);
-                        break;
-                case Linea:
-                    if(this.pi == null && this.pf == null)
-                        break;
-                    else
-                        g.drawLine(this.pi.x, this.pi.y, this.pf.x, this.pf.y);
-                        break;
-                case Rectangulo:
-                    if(pi == null && pf == null)
-                        break;
-                    
-                    x = Math.min(this.pi.x, this.pf.x);
-                    y = Math.min(this.pi.y, this.pf.y);
-                    ancho = Math.abs(this.pi.x - this.pf.x);
-                    alto = Math.abs(this.pi.y - this.pf.y);
-                    
-                    g.drawRect(x, y, ancho, alto);
+            case Linea:
+                if(this.pi == null && this.pf == null)
                     break;
-                case Ovalo:
-                    if(pi == null && pf == null)
-                        break;
-                    
-                    x = Math.min(this.pi.x, this.pf.x);
-                    y = Math.min(this.pi.y, this.pf.y);
-                    ancho = Math.abs(this.pi.x - this.pf.x);
-                    alto = Math.abs(this.pi.y - this.pf.y);
-                    
-                    g.drawOval(x, y, ancho, alto);
+                else
+                    g.drawLine(this.pi.x, this.pi.y, this.pf.x, this.pf.y);
                     break;
-            }
+            case Rectangulo:
+                if(pi == null && pf == null)
+                    break;
+                g.drawRect(ejex, ejey, ancho, alto);
+                break;
+            case RectanguloRelleno:
+                if(pi == null && pf == null)
+                    break;
+                g.fillRect(ejex, ejey, ancho, alto);
+                break;
+            case Ovalo:
+                if(pi == null && pf == null)
+                    break; 
+                g.drawOval(ejex, ejey, ancho, alto);
+                break;
+            case OvaloRelleno:
+                if(pi == null && pf == null)
+                    break; 
+                g.fillOval(ejex, ejey, ancho, alto);
+                break;
         }
     }
     
