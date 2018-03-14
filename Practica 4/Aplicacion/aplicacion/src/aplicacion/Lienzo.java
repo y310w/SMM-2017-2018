@@ -15,9 +15,9 @@ import java.awt.Point;
  */
 public class Lienzo extends javax.swing.JPanel {
 
-    Point pi = new Point(-100,-100);
-    Point pf = new Point(-100,-100);
-    Point pmouse = new Point(-100,-100);
+    Point pi = new Point(-10,-10);
+    Point pf = new Point(-10,-10);
+    Point pmouse = new Point(-10,-10);
     
     Color color = Color.BLACK;
     Formas forma = Formas.Punto;
@@ -133,9 +133,9 @@ public class Lienzo extends javax.swing.JPanel {
     }
     
     public void LimpiarLienzo(){
-        this.pi = null;
-        this.pf = null;
-        this.pmouse = null;
+        this.pi = new Point(-10,-10);
+        this.pf = new Point(-10,-10);
+        this.pmouse = new Point(-10,-10);
     }
     
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
