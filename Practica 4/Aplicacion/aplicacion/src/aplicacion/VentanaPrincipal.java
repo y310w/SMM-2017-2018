@@ -352,6 +352,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void checkBoxRellenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxRellenoActionPerformed
         this.lienzo.setRelleno(this.checkBoxRelleno.isSelected());
+        if(this.checkBoxRelleno.isSelected()){
+            if(this.lienzo.getForma() == Rectangulo)
+                this.lienzo.setForma(RectanguloRelleno);
+            if(this.lienzo.getForma() == Ovalo)
+                this.lienzo.setForma(OvaloRelleno);
+        }else{
+            if(this.lienzo.getForma() == RectanguloRelleno)
+                this.lienzo.setForma(Rectangulo);
+            if(this.lienzo.getForma() == OvaloRelleno)
+                this.lienzo.setForma(Ovalo);
+        }
     }//GEN-LAST:event_checkBoxRellenoActionPerformed
 
 
