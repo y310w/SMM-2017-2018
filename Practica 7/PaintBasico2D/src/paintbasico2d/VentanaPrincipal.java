@@ -5,6 +5,12 @@
  */
 package paintbasico2d;
 
+import java.awt.BasicStroke;
+import java.awt.Stroke;
+import java.io.File;
+import java.util.ArrayList;
+import javax.swing.JFileChooser;
+
 /**
  *
  * @author thejoker
@@ -14,9 +20,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form VentanaPrincipal
      */
+    private VentanaInterna vi;
+
     public VentanaPrincipal() {
         initComponents();
-        
+
         this.setTitle("Paint Básico 2D");
         this.setSize(625, 600);
     }
@@ -75,9 +83,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         buttonGroupFiguras.add(ToggleButtonPuntos);
         ToggleButtonPuntos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Lapiz.gif"))); // NOI18N
+        ToggleButtonPuntos.setSelected(true);
         ToggleButtonPuntos.setFocusable(false);
         ToggleButtonPuntos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         ToggleButtonPuntos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        ToggleButtonPuntos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ToggleButtonPuntosActionPerformed(evt);
+            }
+        });
         BarraHerramientasSup.add(ToggleButtonPuntos);
 
         buttonGroupFiguras.add(ToggleButtonLinea);
@@ -85,6 +99,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         ToggleButtonLinea.setFocusable(false);
         ToggleButtonLinea.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         ToggleButtonLinea.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        ToggleButtonLinea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ToggleButtonLineaActionPerformed(evt);
+            }
+        });
         BarraHerramientasSup.add(ToggleButtonLinea);
 
         buttonGroupFiguras.add(ToggleButtonRect);
@@ -92,6 +111,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         ToggleButtonRect.setFocusable(false);
         ToggleButtonRect.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         ToggleButtonRect.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        ToggleButtonRect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ToggleButtonRectActionPerformed(evt);
+            }
+        });
         BarraHerramientasSup.add(ToggleButtonRect);
 
         buttonGroupFiguras.add(ToggleButtonElip);
@@ -99,6 +123,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         ToggleButtonElip.setFocusable(false);
         ToggleButtonElip.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         ToggleButtonElip.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        ToggleButtonElip.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ToggleButtonElipActionPerformed(evt);
+            }
+        });
         BarraHerramientasSup.add(ToggleButtonElip);
 
         getContentPane().add(BarraHerramientasSup, java.awt.BorderLayout.PAGE_START);
@@ -117,35 +146,65 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         buttonGroupColores.add(ToggleButtonNegro);
         ToggleButtonNegro.setMargin(new java.awt.Insets(1, 1, 1, 1));
         ToggleButtonNegro.setPreferredSize(new java.awt.Dimension(25, 20));
+        ToggleButtonNegro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ToggleButtonNegroActionPerformed(evt);
+            }
+        });
         jPanel1.add(ToggleButtonNegro);
 
         ToggleButtonRojo.setBackground(new java.awt.Color(255, 51, 51));
         buttonGroupColores.add(ToggleButtonRojo);
         ToggleButtonRojo.setMargin(new java.awt.Insets(1, 1, 1, 1));
         ToggleButtonRojo.setPreferredSize(new java.awt.Dimension(25, 20));
+        ToggleButtonRojo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ToggleButtonRojoActionPerformed(evt);
+            }
+        });
         jPanel1.add(ToggleButtonRojo);
 
         ToggleButtonAzul.setBackground(new java.awt.Color(0, 51, 255));
         buttonGroupColores.add(ToggleButtonAzul);
         ToggleButtonAzul.setMargin(new java.awt.Insets(1, 1, 1, 1));
         ToggleButtonAzul.setPreferredSize(new java.awt.Dimension(25, 20));
+        ToggleButtonAzul.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ToggleButtonAzulActionPerformed(evt);
+            }
+        });
         jPanel1.add(ToggleButtonAzul);
 
         ToggleButtonBlanco.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroupColores.add(ToggleButtonBlanco);
         ToggleButtonBlanco.setMargin(new java.awt.Insets(1, 1, 1, 1));
         ToggleButtonBlanco.setPreferredSize(new java.awt.Dimension(25, 20));
+        ToggleButtonBlanco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ToggleButtonBlancoActionPerformed(evt);
+            }
+        });
         jPanel1.add(ToggleButtonBlanco);
 
         ToggleButtonAmarillo.setBackground(new java.awt.Color(255, 255, 0));
         buttonGroupColores.add(ToggleButtonAmarillo);
         ToggleButtonAmarillo.setMargin(new java.awt.Insets(1, 1, 1, 1));
         ToggleButtonAmarillo.setPreferredSize(new java.awt.Dimension(25, 20));
+        ToggleButtonAmarillo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ToggleButtonAmarilloActionPerformed(evt);
+            }
+        });
         jPanel1.add(ToggleButtonAmarillo);
 
         ToggleButtonVerde.setBackground(new java.awt.Color(51, 255, 51));
         buttonGroupColores.add(ToggleButtonVerde);
         ToggleButtonVerde.setPreferredSize(new java.awt.Dimension(25, 20));
+        ToggleButtonVerde.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ToggleButtonVerdeActionPerformed(evt);
+            }
+        });
         jPanel1.add(ToggleButtonVerde);
 
         BarraHerramientasInf.add(jPanel1);
@@ -154,6 +213,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel2.setPreferredSize(new java.awt.Dimension(60, 80));
 
         SpinnerGrosor.setModel(new javax.swing.SpinnerNumberModel(1, null, null, 1));
+        SpinnerGrosor.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                SpinnerGrosorStateChanged(evt);
+            }
+        });
         jPanel2.add(SpinnerGrosor);
 
         BarraHerramientasInf.add(jPanel2);
@@ -164,18 +228,38 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         CheckBoxRelleno.setText("Relleno");
         CheckBoxRelleno.setMinimumSize(new java.awt.Dimension(130, 23));
         CheckBoxRelleno.setPreferredSize(new java.awt.Dimension(100, 20));
+        CheckBoxRelleno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CheckBoxRellenoActionPerformed(evt);
+            }
+        });
         jPanel3.add(CheckBoxRelleno);
 
         CheckBoxTrans.setText("Transparencia");
         CheckBoxTrans.setPreferredSize(new java.awt.Dimension(110, 20));
+        CheckBoxTrans.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CheckBoxTransActionPerformed(evt);
+            }
+        });
         jPanel3.add(CheckBoxTrans);
 
         CheckBoxAlisar.setText("Alisar");
         CheckBoxAlisar.setPreferredSize(new java.awt.Dimension(100, 20));
+        CheckBoxAlisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CheckBoxAlisarActionPerformed(evt);
+            }
+        });
         jPanel3.add(CheckBoxAlisar);
 
         CheckBoxEditar.setText("Editar");
         CheckBoxEditar.setPreferredSize(new java.awt.Dimension(110, 20));
+        CheckBoxEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CheckBoxEditarActionPerformed(evt);
+            }
+        });
         jPanel3.add(CheckBoxEditar);
 
         BarraHerramientasInf.add(jPanel3);
@@ -190,12 +274,27 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         MenuArchivo.setText("Archivo");
 
         MenuItemNuevo.setText("Nuevo");
+        MenuItemNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuItemNuevoActionPerformed(evt);
+            }
+        });
         MenuArchivo.add(MenuItemNuevo);
 
         MenuItemAbrir.setText("Abrir");
+        MenuItemAbrir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuItemAbrirActionPerformed(evt);
+            }
+        });
         MenuArchivo.add(MenuItemAbrir);
 
         MenuItemGuardar.setText("Guardar");
+        MenuItemGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuItemGuardarActionPerformed(evt);
+            }
+        });
         MenuArchivo.add(MenuItemGuardar);
 
         MenuBar.add(MenuArchivo);
@@ -204,14 +303,29 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         CheckBoxMenuItemBarraEstado.setSelected(true);
         CheckBoxMenuItemBarraEstado.setText("Ver barra de estado");
+        CheckBoxMenuItemBarraEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CheckBoxMenuItemBarraEstadoActionPerformed(evt);
+            }
+        });
         MenuEdicion.add(CheckBoxMenuItemBarraEstado);
 
         CheckBoxMenuItemBarraForma.setSelected(true);
         CheckBoxMenuItemBarraForma.setText("Ver barra de formas");
+        CheckBoxMenuItemBarraForma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CheckBoxMenuItemBarraFormaActionPerformed(evt);
+            }
+        });
         MenuEdicion.add(CheckBoxMenuItemBarraForma);
 
         CheckBoxMenuItemBarraAtrib.setSelected(true);
         CheckBoxMenuItemBarraAtrib.setText("Ver barra de atributos");
+        CheckBoxMenuItemBarraAtrib.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CheckBoxMenuItemBarraAtribActionPerformed(evt);
+            }
+        });
         MenuEdicion.add(CheckBoxMenuItemBarraAtrib);
 
         MenuBar.add(MenuEdicion);
@@ -221,38 +335,142 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public VentanaInterna getSelectedInternalWindow() {
+        vi = (VentanaInterna) Desktop.getSelectedFrame();
+        return vi;
+    }
+
+    private void MenuItemNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemNuevoActionPerformed
+        VentanaInterna vi = new VentanaInterna(this);
+        Desktop.add(vi);
+        vi.setVisible(true);
+    }//GEN-LAST:event_MenuItemNuevoActionPerformed
+
+    private void MenuItemAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemAbrirActionPerformed
+        JFileChooser dlg = new JFileChooser();
+        int resp = dlg.showOpenDialog(this);
+        if (resp == JFileChooser.APPROVE_OPTION) {
+            File f = dlg.getSelectedFile();
+        }
+    }//GEN-LAST:event_MenuItemAbrirActionPerformed
+
+    private void MenuItemGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemGuardarActionPerformed
+        JFileChooser dlg = new JFileChooser();
+        int resp = dlg.showSaveDialog(this);
+        if (resp == JFileChooser.APPROVE_OPTION) {
+            File f = dlg.getSelectedFile();
+        }
+    }//GEN-LAST:event_MenuItemGuardarActionPerformed
+
+    private void CheckBoxMenuItemBarraEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxMenuItemBarraEstadoActionPerformed
+        this.LabelStatus.setVisible(this.CheckBoxMenuItemBarraEstado.isSelected());
+    }//GEN-LAST:event_CheckBoxMenuItemBarraEstadoActionPerformed
+
+    private void CheckBoxMenuItemBarraFormaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxMenuItemBarraFormaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CheckBoxMenuItemBarraFormaActionPerformed
+
+    private void CheckBoxMenuItemBarraAtribActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxMenuItemBarraAtribActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CheckBoxMenuItemBarraAtribActionPerformed
+
+    private void ToggleButtonPuntosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleButtonPuntosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ToggleButtonPuntosActionPerformed
+
+    private void ToggleButtonLineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleButtonLineaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ToggleButtonLineaActionPerformed
+
+    private void ToggleButtonRectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleButtonRectActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ToggleButtonRectActionPerformed
+
+    private void ToggleButtonElipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleButtonElipActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ToggleButtonElipActionPerformed
+
+    private void ToggleButtonNegroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleButtonNegroActionPerformed
+        this.getSelectedInternalWindow().getLienzo2D().setColor(this.ToggleButtonNegro.getBackground());
+    }//GEN-LAST:event_ToggleButtonNegroActionPerformed
+
+    private void ToggleButtonRojoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleButtonRojoActionPerformed
+        this.getSelectedInternalWindow().getLienzo2D().setColor(this.ToggleButtonRojo.getBackground());
+    }//GEN-LAST:event_ToggleButtonRojoActionPerformed
+
+    private void ToggleButtonAzulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleButtonAzulActionPerformed
+        this.getSelectedInternalWindow().getLienzo2D().setColor(this.ToggleButtonAzul.getBackground());
+    }//GEN-LAST:event_ToggleButtonAzulActionPerformed
+
+    private void ToggleButtonBlancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleButtonBlancoActionPerformed
+        this.getSelectedInternalWindow().getLienzo2D().setColor(this.ToggleButtonBlanco.getBackground());
+    }//GEN-LAST:event_ToggleButtonBlancoActionPerformed
+
+    private void ToggleButtonAmarilloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleButtonAmarilloActionPerformed
+        this.getSelectedInternalWindow().getLienzo2D().setColor(this.ToggleButtonAmarillo.getBackground());
+    }//GEN-LAST:event_ToggleButtonAmarilloActionPerformed
+
+    private void ToggleButtonVerdeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleButtonVerdeActionPerformed
+        this.getSelectedInternalWindow().getLienzo2D().setColor(this.ToggleButtonVerde.getBackground());
+    }//GEN-LAST:event_ToggleButtonVerdeActionPerformed
+
+    private void SpinnerGrosorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_SpinnerGrosorStateChanged
+        int grosor = (Integer) this.SpinnerGrosor.getValue();
+        this.getSelectedInternalWindow().getLienzo2D().setStroke(grosor);
+    }//GEN-LAST:event_SpinnerGrosorStateChanged
+
+    private void CheckBoxRellenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxRellenoActionPerformed
+        if(this.getSelectedInternalWindow() != null)
+            this.getSelectedInternalWindow().getLienzo2D().setRelleno(CheckBoxRelleno.isSelected());
+    }//GEN-LAST:event_CheckBoxRellenoActionPerformed
+
+    private void CheckBoxAlisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxAlisarActionPerformed
+        if(this.getSelectedInternalWindow() != null)
+            this.getSelectedInternalWindow().getLienzo2D().setAlisar(CheckBoxAlisar.isSelected());
+    }//GEN-LAST:event_CheckBoxAlisarActionPerformed
+
+    private void CheckBoxTransActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxTransActionPerformed
+        if(this.getSelectedInternalWindow() != null)
+            this.getSelectedInternalWindow().getLienzo2D().setTransparencia(CheckBoxTrans.isSelected());
+    }//GEN-LAST:event_CheckBoxTransActionPerformed
+
+    private void CheckBoxEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxEditarActionPerformed
+        if(this.getSelectedInternalWindow() != null)
+            this.getSelectedInternalWindow().getLienzo2D().setEditar(CheckBoxEditar.isSelected());
+    }//GEN-LAST:event_CheckBoxEditarActionPerformed
+
     /**
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToolBar BarraHerramientasInf;
     private javax.swing.JToolBar BarraHerramientasSup;
-    private javax.swing.JCheckBox CheckBoxAlisar;
-    private javax.swing.JCheckBox CheckBoxEditar;
+    protected javax.swing.JCheckBox CheckBoxAlisar;
+    protected javax.swing.JCheckBox CheckBoxEditar;
     private javax.swing.JCheckBoxMenuItem CheckBoxMenuItemBarraAtrib;
     private javax.swing.JCheckBoxMenuItem CheckBoxMenuItemBarraEstado;
     private javax.swing.JCheckBoxMenuItem CheckBoxMenuItemBarraForma;
-    private javax.swing.JCheckBox CheckBoxRelleno;
-    private javax.swing.JCheckBox CheckBoxTrans;
+    protected javax.swing.JCheckBox CheckBoxRelleno;
+    protected javax.swing.JCheckBox CheckBoxTrans;
     private javax.swing.JDesktopPane Desktop;
-    private javax.swing.JLabel LabelStatus;
+    protected javax.swing.JLabel LabelStatus;
     private javax.swing.JMenu MenuArchivo;
     private javax.swing.JMenuBar MenuBar;
     private javax.swing.JMenu MenuEdicion;
     private javax.swing.JMenuItem MenuItemAbrir;
     private javax.swing.JMenuItem MenuItemGuardar;
     private javax.swing.JMenuItem MenuItemNuevo;
-    private javax.swing.JSpinner SpinnerGrosor;
-    private javax.swing.JToggleButton ToggleButtonAmarillo;
-    private javax.swing.JToggleButton ToggleButtonAzul;
-    private javax.swing.JToggleButton ToggleButtonBlanco;
-    private javax.swing.JToggleButton ToggleButtonElip;
-    private javax.swing.JToggleButton ToggleButtonLinea;
-    private javax.swing.JToggleButton ToggleButtonNegro;
-    private javax.swing.JToggleButton ToggleButtonPuntos;
-    private javax.swing.JToggleButton ToggleButtonRect;
-    private javax.swing.JToggleButton ToggleButtonRojo;
-    private javax.swing.JToggleButton ToggleButtonVerde;
+    protected javax.swing.JSpinner SpinnerGrosor;
+    protected javax.swing.JToggleButton ToggleButtonAmarillo;
+    protected javax.swing.JToggleButton ToggleButtonAzul;
+    protected javax.swing.JToggleButton ToggleButtonBlanco;
+    protected javax.swing.JToggleButton ToggleButtonElip;
+    protected javax.swing.JToggleButton ToggleButtonLinea;
+    protected javax.swing.JToggleButton ToggleButtonNegro;
+    protected javax.swing.JToggleButton ToggleButtonPuntos;
+    protected javax.swing.JToggleButton ToggleButtonRect;
+    protected javax.swing.JToggleButton ToggleButtonRojo;
+    protected javax.swing.JToggleButton ToggleButtonVerde;
     private javax.swing.ButtonGroup buttonGroupColores;
     private javax.swing.ButtonGroup buttonGroupFiguras;
     private javax.swing.JPanel jPanel;

@@ -5,7 +5,19 @@
  */
 package sm.ftm.iu;
 
+import sm.ftm.graficos.Formas;
+import java.awt.BasicStroke;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Color;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.util.List;
+import java.awt.Shape;
+import java.awt.Stroke;
+import java.util.ArrayList;
+
+
 /**
  *
  * @author thejoker
@@ -15,14 +27,98 @@ public class Lienzo2D extends javax.swing.JPanel {
     /**
      * Creates new form Lienzo2D
      */
+    private Point pAux;
+    List<Shape> vShape;
+    private Formas forma;
+
+    private Color color;
+    private Stroke stroke;
+    
+    private boolean relleno;
+    private boolean transparencia;
+    private boolean alisar;
+    private boolean editar;
+
     public Lienzo2D() {
         initComponents();
+        this.vShape = new ArrayList();
+        forma = Formas.Punto;
+        color = Color.BLACK;
+        stroke= new BasicStroke(1);
+        relleno = false;
+        transparencia = false;
+        alisar = false;
+        editar = false;
     }
 
     @Override
     public void paint(Graphics g){
-        
+        super.paint(g);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setPaint(color);
+        g2d.setStroke(stroke);
+        for(Shape s:vShape) {
+            if(relleno) g2d.fill(s);
+            g2d.draw(s);
+        }
     }
+    
+    public Formas getForma() {
+        return forma;
+    }
+
+    public void setForma(Formas forma) {
+        this.forma = forma;
+    }
+    
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public Stroke getStroke() {
+        return stroke;
+    }
+
+    public void setStroke(int grosor) {
+        this.stroke = new BasicStroke(grosor);
+    }
+
+    public boolean isRelleno() {
+        return relleno;
+    }
+
+    public void setRelleno(boolean relleno) {
+        this.relleno = relleno;
+    }
+    
+    public boolean isTransparencia() {
+        return transparencia;
+    }
+
+    public void setTransparencia(boolean transparencia) {
+        this.transparencia = transparencia;
+    }
+
+    public boolean isAlisar() {
+        return alisar;
+    }
+
+    public void setAlisar(boolean alisar) {
+        this.alisar = alisar;
+    }
+
+    public boolean isEditar() {
+        return editar;
+    }
+
+    public void setEditar(boolean editar) {
+        this.editar = editar;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,6 +127,21 @@ public class Lienzo2D extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
+        setBackground(new java.awt.Color(255, 255, 255));
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                formMouseDragged(evt);
+            }
+        });
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                formMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                formMouseReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -43,6 +154,21 @@ public class Lienzo2D extends javax.swing.JPanel {
             .addGap(0, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    
+    private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
+    
+    }//GEN-LAST:event_formMousePressed
+
+    private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
+        this.repaint();
+    }//GEN-LAST:event_formMouseDragged
+
+    private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
+        this.formMouseDragged(evt);
+        this.repaint();
+    }//GEN-LAST:event_formMouseReleased
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

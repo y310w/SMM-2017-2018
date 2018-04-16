@@ -5,6 +5,9 @@
  */
 package paintbasico2d;
 
+import sm.ftm.iu.Lienzo2D;
+import sm.ftm.graficos.Formas;
+
 /**
  *
  * @author thejoker
@@ -16,13 +19,12 @@ public class VentanaInterna extends javax.swing.JInternalFrame {
      */
     
     private VentanaPrincipal parent = null;
+  
     public VentanaInterna(VentanaPrincipal parent) {
         initComponents();
         this.parent = parent;
         
-//        VentanaInterna vi = new VentanaInterna();
-//        escritorio.add(vi);
-//        vi.setVisible(true);
+        this.setTitle("Lienzo");
     }
 
     /**
@@ -37,6 +39,7 @@ public class VentanaInterna extends javax.swing.JInternalFrame {
         lienzo2D = new sm.ftm.iu.Lienzo2D();
 
         setClosable(true);
+        setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
@@ -72,13 +75,30 @@ public class VentanaInterna extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    public Lienzo2D getLienzo2D(){
+        return lienzo2D;
+    }
+    
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
         
+        if(this.lienzo2D.getForma() == Formas.Punto)
+            this.parent.ToggleButtonPuntos.setSelected(true);
+       
+        if(this.lienzo2D.getForma() == Formas.Linea)
+            this.parent.ToggleButtonLinea.setSelected(true);
         
+        if(this.lienzo2D.getForma() == Formas.Rectangulo)
+            this.parent.ToggleButtonRect.setSelected(true);
         
-        /*lienzo2D.isRelleno()
-                //Activo el checkbox de relleno*/
+        if(this.lienzo2D.getForma() == Formas.Ovalo)
+            this.parent.ToggleButtonElip.setSelected(true);
+        
+        this.parent.CheckBoxRelleno.setSelected(this.lienzo2D.isRelleno());
+        this.parent.CheckBoxTrans.setSelected(this.lienzo2D.isTransparencia());
+        this.parent.CheckBoxAlisar.setSelected(this.lienzo2D.isAlisar());
+        this.parent.CheckBoxEditar.setSelected(this.lienzo2D.isEditar());
+         
     }//GEN-LAST:event_formInternalFrameActivated
 
 
