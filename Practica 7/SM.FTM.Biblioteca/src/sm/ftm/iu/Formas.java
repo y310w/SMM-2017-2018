@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sm.ftm.graficos;
+package sm.ftm.iu;
 
 /**
  *
  * @author thejoker
  */
 public enum Formas {
-    Punto, Linea, Rectangulo, Ovalo;
+    Punto, Linea, Rectangulo, Elipse;
 }

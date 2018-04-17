@@ -5,18 +5,24 @@
  */
 package sm.ftm.iu;
 
-import sm.ftm.graficos.Formas;
-import java.awt.BasicStroke;
+import java.awt.AlphaComposite;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Color;
-import java.awt.Point;
-import java.awt.Rectangle;
+
 import java.util.List;
-import java.awt.Shape;
-import java.awt.Stroke;
 import java.util.ArrayList;
 
+import java.awt.Color;
+import java.awt.Stroke;
+import java.awt.BasicStroke;
+import java.awt.Composite;
+import java.awt.RenderingHints;
+
+import java.awt.Shape;
+import java.awt.geom.Point2D;
+import sm.ftm.graficos.MiElipse;
+import sm.ftm.graficos.MiLinea;
+import sm.ftm.graficos.MiRectangulo;
 
 /**
  *
@@ -27,10 +33,11 @@ public class Lienzo2D extends javax.swing.JPanel {
     /**
      * Creates new form Lienzo2D
      */
-    private Point pAux;
+    private Point2D pAux;
     List<Shape> vShape;
     private Formas forma;
-
+    private Shape s;
+    
     private Color color;
     private Stroke stroke;
     
@@ -39,16 +46,22 @@ public class Lienzo2D extends javax.swing.JPanel {
     private boolean alisar;
     private boolean editar;
 
+    private RenderingHints render;
+    private Composite comp;
+    
     public Lienzo2D() {
         initComponents();
         this.vShape = new ArrayList();
         forma = Formas.Punto;
         color = Color.BLACK;
-        stroke= new BasicStroke(1);
+        stroke = new BasicStroke(1.0f);
         relleno = false;
         transparencia = false;
         alisar = false;
         editar = false;
+        
+        render = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        comp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f);
     }
 
     @Override
@@ -57,6 +70,13 @@ public class Lienzo2D extends javax.swing.JPanel {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setPaint(color);
         g2d.setStroke(stroke);
+        
+        if(transparencia)
+            g2d.setComposite(comp);
+        
+        if(alisar)
+            g2d.setRenderingHints(render);
+            
         for(Shape s:vShape) {
             if(relleno) g2d.fill(s);
             g2d.draw(s);
@@ -87,6 +107,10 @@ public class Lienzo2D extends javax.swing.JPanel {
         this.stroke = new BasicStroke(grosor);
     }
 
+    public Float getStrokeWidth(){
+        return ((BasicStroke) stroke).getLineWidth();
+    }
+    
     public boolean isRelleno() {
         return relleno;
     }
@@ -117,6 +141,61 @@ public class Lienzo2D extends javax.swing.JPanel {
 
     public void setEditar(boolean editar) {
         this.editar = editar;
+    }
+    
+    public Shape getSelectedShape(Point2D p){
+        for(Shape s:vShape)
+            if(s.contains(p))
+                return s;
+        
+        return null;
+    }
+    
+    public Shape CreateShape(Point2D pi, Point2D pf){
+        Shape s = null;
+        
+        switch(forma){
+            case Punto:
+                    s = new MiLinea(pi,pi);
+                break;
+            case Linea:
+                    s = new MiLinea(pi,pf);
+                break;
+            case Rectangulo:
+                    s = new MiRectangulo(pi,pf);
+                break;
+            case Elipse:
+                    s = new MiElipse(pi,pf);
+                break;
+        }
+        
+        return s;
+    }
+    
+    public Shape UpdateShape(Point2D pf){
+        MiLinea linea;
+        MiRectangulo rectangulo;
+        MiElipse elipse;
+    
+        switch(forma){
+            case Linea:
+                    linea = (MiLinea) s;
+                    linea.setPf(pf);
+                    s = (Shape) linea;
+                break;
+            case Rectangulo:
+                    rectangulo = (MiRectangulo) s;
+                    rectangulo.setPf(pf);
+                    s = (Shape) rectangulo;
+                break;
+            case Elipse:
+                    elipse = (MiElipse) s;
+                    elipse.setPf(pf);
+                    s = (Shape) elipse;
+                break;
+        }
+        
+        return this.s;
     }
     
     /**
@@ -157,10 +236,23 @@ public class Lienzo2D extends javax.swing.JPanel {
 
     
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
-    
+        if(editar){
+            this.s = this.getSelectedShape(evt.getPoint());
+        }else{
+            pAux = evt.getPoint();
+            this.s = this.CreateShape(pAux,pAux);
+            vShape.add(s);
+        }
+            
     }//GEN-LAST:event_formMousePressed
 
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
+        if(editar){
+            if(this.s != null){
+                
+            }    
+        }else
+            this.UpdateShape(evt.getPoint());
         this.repaint();
     }//GEN-LAST:event_formMouseDragged
 

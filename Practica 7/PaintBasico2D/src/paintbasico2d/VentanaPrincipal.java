@@ -10,6 +10,7 @@ import java.awt.Stroke;
 import java.io.File;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
+import sm.ftm.iu.Formas;
 
 /**
  *
@@ -210,9 +211,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         BarraHerramientasInf.add(jPanel1);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.lightGray, java.awt.Color.lightGray, java.awt.Color.lightGray), "Grosor", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP));
-        jPanel2.setPreferredSize(new java.awt.Dimension(60, 80));
+        jPanel2.setPreferredSize(new java.awt.Dimension(70, 80));
 
         SpinnerGrosor.setModel(new javax.swing.SpinnerNumberModel(1, null, null, 1));
+        SpinnerGrosor.setPreferredSize(new java.awt.Dimension(50, 26));
+        SpinnerGrosor.setSize(new java.awt.Dimension(35, 26));
         SpinnerGrosor.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 SpinnerGrosorStateChanged(evt);
@@ -367,58 +370,63 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_CheckBoxMenuItemBarraEstadoActionPerformed
 
     private void CheckBoxMenuItemBarraFormaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxMenuItemBarraFormaActionPerformed
-        // TODO add your handling code here:
+        this.BarraHerramientasSup.setVisible(this.CheckBoxMenuItemBarraForma.isSelected());
     }//GEN-LAST:event_CheckBoxMenuItemBarraFormaActionPerformed
 
     private void CheckBoxMenuItemBarraAtribActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxMenuItemBarraAtribActionPerformed
-        // TODO add your handling code here:
+        this.BarraHerramientasInf.setVisible(this.CheckBoxMenuItemBarraAtrib.isSelected());
     }//GEN-LAST:event_CheckBoxMenuItemBarraAtribActionPerformed
 
     private void ToggleButtonPuntosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleButtonPuntosActionPerformed
-        // TODO add your handling code here:
+        if(this.getSelectedInternalWindow() != null)
+            this.getSelectedInternalWindow().getLienzo2D().setForma(Formas.Punto);
     }//GEN-LAST:event_ToggleButtonPuntosActionPerformed
 
     private void ToggleButtonLineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleButtonLineaActionPerformed
-        // TODO add your handling code here:
+        if(this.getSelectedInternalWindow() != null)
+            this.getSelectedInternalWindow().getLienzo2D().setForma(Formas.Linea);
     }//GEN-LAST:event_ToggleButtonLineaActionPerformed
 
     private void ToggleButtonRectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleButtonRectActionPerformed
-        // TODO add your handling code here:
+        if(this.getSelectedInternalWindow() != null)
+            this.getSelectedInternalWindow().getLienzo2D().setForma(Formas.Rectangulo);
     }//GEN-LAST:event_ToggleButtonRectActionPerformed
 
     private void ToggleButtonElipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleButtonElipActionPerformed
-        // TODO add your handling code here:
+        if(this.getSelectedInternalWindow() != null)
+            this.getSelectedInternalWindow().getLienzo2D().setForma(Formas.Elipse);
     }//GEN-LAST:event_ToggleButtonElipActionPerformed
 
     private void ToggleButtonNegroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleButtonNegroActionPerformed
-        this.getSelectedInternalWindow().getLienzo2D().setColor(this.ToggleButtonNegro.getBackground());
+        if(this.getSelectedInternalWindow() != null)
+            this.getSelectedInternalWindow().getLienzo2D().setColor(this.ToggleButtonNegro.getBackground());
     }//GEN-LAST:event_ToggleButtonNegroActionPerformed
 
     private void ToggleButtonRojoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleButtonRojoActionPerformed
-        this.getSelectedInternalWindow().getLienzo2D().setColor(this.ToggleButtonRojo.getBackground());
+        if(this.getSelectedInternalWindow() != null)
+           this.getSelectedInternalWindow().getLienzo2D().setColor(this.ToggleButtonRojo.getBackground());
     }//GEN-LAST:event_ToggleButtonRojoActionPerformed
 
     private void ToggleButtonAzulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleButtonAzulActionPerformed
-        this.getSelectedInternalWindow().getLienzo2D().setColor(this.ToggleButtonAzul.getBackground());
+        if(this.getSelectedInternalWindow() != null)
+            this.getSelectedInternalWindow().getLienzo2D().setColor(this.ToggleButtonAzul.getBackground());
     }//GEN-LAST:event_ToggleButtonAzulActionPerformed
 
     private void ToggleButtonBlancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleButtonBlancoActionPerformed
-        this.getSelectedInternalWindow().getLienzo2D().setColor(this.ToggleButtonBlanco.getBackground());
+        if(this.getSelectedInternalWindow() != null)
+            this.getSelectedInternalWindow().getLienzo2D().setColor(this.ToggleButtonBlanco.getBackground());
     }//GEN-LAST:event_ToggleButtonBlancoActionPerformed
 
     private void ToggleButtonAmarilloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleButtonAmarilloActionPerformed
-        this.getSelectedInternalWindow().getLienzo2D().setColor(this.ToggleButtonAmarillo.getBackground());
+        if(this.getSelectedInternalWindow() != null)    
+            this.getSelectedInternalWindow().getLienzo2D().setColor(this.ToggleButtonAmarillo.getBackground());
     }//GEN-LAST:event_ToggleButtonAmarilloActionPerformed
 
     private void ToggleButtonVerdeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleButtonVerdeActionPerformed
-        this.getSelectedInternalWindow().getLienzo2D().setColor(this.ToggleButtonVerde.getBackground());
+        if(this.getSelectedInternalWindow() != null)
+            this.getSelectedInternalWindow().getLienzo2D().setColor(this.ToggleButtonVerde.getBackground());
     }//GEN-LAST:event_ToggleButtonVerdeActionPerformed
-
-    private void SpinnerGrosorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_SpinnerGrosorStateChanged
-        int grosor = (Integer) this.SpinnerGrosor.getValue();
-        this.getSelectedInternalWindow().getLienzo2D().setStroke(grosor);
-    }//GEN-LAST:event_SpinnerGrosorStateChanged
-
+        
     private void CheckBoxRellenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxRellenoActionPerformed
         if(this.getSelectedInternalWindow() != null)
             this.getSelectedInternalWindow().getLienzo2D().setRelleno(CheckBoxRelleno.isSelected());
@@ -438,6 +446,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         if(this.getSelectedInternalWindow() != null)
             this.getSelectedInternalWindow().getLienzo2D().setEditar(CheckBoxEditar.isSelected());
     }//GEN-LAST:event_CheckBoxEditarActionPerformed
+
+    private void SpinnerGrosorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_SpinnerGrosorStateChanged
+        if(this.getSelectedInternalWindow() != null){
+            int grosor = (int) this.SpinnerGrosor.getValue();
+            this.getSelectedInternalWindow().getLienzo2D().setStroke(grosor);
+        }
+    }//GEN-LAST:event_SpinnerGrosorStateChanged
 
     /**
      * @param args the command line arguments

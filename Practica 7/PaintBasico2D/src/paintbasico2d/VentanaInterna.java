@@ -5,8 +5,11 @@
  */
 package paintbasico2d;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
+import javax.swing.JSpinner;
 import sm.ftm.iu.Lienzo2D;
-import sm.ftm.graficos.Formas;
+import sm.ftm.iu.Formas;
 
 /**
  *
@@ -91,14 +94,34 @@ public class VentanaInterna extends javax.swing.JInternalFrame {
         if(this.lienzo2D.getForma() == Formas.Rectangulo)
             this.parent.ToggleButtonRect.setSelected(true);
         
-        if(this.lienzo2D.getForma() == Formas.Ovalo)
+        if(this.lienzo2D.getForma() == Formas.Elipse)
             this.parent.ToggleButtonElip.setSelected(true);
+        
+        if(this.lienzo2D.getColor() == Color.BLACK)
+            this.parent.ToggleButtonNegro.setSelected(true);
+        
+        if(this.lienzo2D.getColor() == Color.RED)
+            this.parent.ToggleButtonRojo.setSelected(true);
+        
+        if(this.lienzo2D.getColor() == Color.BLUE)
+            this.parent.ToggleButtonAzul.setSelected(true);
+        
+        if(this.lienzo2D.getColor() == Color.WHITE)
+            this.parent.ToggleButtonBlanco.setSelected(true);
+        
+        if(this.lienzo2D.getColor() == Color.YELLOW)
+            this.parent.ToggleButtonAmarillo.setSelected(true);
+        
+        if(this.lienzo2D.getColor() == Color.GREEN)
+            this.parent.ToggleButtonVerde.setSelected(true);
+        
+        BasicStroke s = (BasicStroke) this.lienzo2D.getStroke();
+        this.parent.SpinnerGrosor.setValue(this.lienzo2D.getStrokeWidth().intValue());
         
         this.parent.CheckBoxRelleno.setSelected(this.lienzo2D.isRelleno());
         this.parent.CheckBoxTrans.setSelected(this.lienzo2D.isTransparencia());
         this.parent.CheckBoxAlisar.setSelected(this.lienzo2D.isAlisar());
-        this.parent.CheckBoxEditar.setSelected(this.lienzo2D.isEditar());
-         
+        this.parent.CheckBoxEditar.setSelected(this.lienzo2D.isEditar()); 
     }//GEN-LAST:event_formInternalFrameActivated
 
 
