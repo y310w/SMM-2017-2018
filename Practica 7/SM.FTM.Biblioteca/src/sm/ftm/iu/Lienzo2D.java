@@ -51,10 +51,13 @@ public class Lienzo2D extends javax.swing.JPanel {
     
     public Lienzo2D() {
         initComponents();
+        
         this.vShape = new ArrayList();
         forma = Formas.Punto;
+        
         color = Color.BLACK;
         stroke = new BasicStroke(1.0f);
+        
         relleno = false;
         transparencia = false;
         alisar = false;
@@ -172,7 +175,7 @@ public class Lienzo2D extends javax.swing.JPanel {
         return s;
     }
     
-    public Shape UpdateShape(Point2D pf){
+    public void UpdateShape(Point2D pf){
         MiLinea linea;
         MiRectangulo rectangulo;
         MiElipse elipse;
@@ -181,21 +184,37 @@ public class Lienzo2D extends javax.swing.JPanel {
             case Linea:
                     linea = (MiLinea) s;
                     linea.setPf(pf);
-                    s = (Shape) linea;
                 break;
             case Rectangulo:
                     rectangulo = (MiRectangulo) s;
                     rectangulo.setPf(pf);
-                    s = (Shape) rectangulo;
                 break;
             case Elipse:
                     elipse = (MiElipse) s;
                     elipse.setPf(pf);
-                    s = (Shape) elipse;
                 break;
         }
+    }
+    
+    public void UpdatePositionShape(Point2D p){
+        MiLinea linea;
+        MiRectangulo rectangulo;
+        MiElipse elipse;
+    
+        if(s instanceof MiLinea){
+            linea = (MiLinea) s;
+            linea.setLocation(p);
+        }
         
-        return this.s;
+        if(s instanceof MiRectangulo){
+            rectangulo = (MiRectangulo) s;
+            rectangulo.setLocation(p);
+        }
+        
+        if(s instanceof MiElipse){
+            elipse = (MiElipse) s;
+            elipse.setLocation(p);
+        }
     }
     
     /**
@@ -249,7 +268,7 @@ public class Lienzo2D extends javax.swing.JPanel {
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
         if(editar){
             if(this.s != null){
-                
+                this.UpdatePositionShape(evt.getPoint());
             }    
         }else
             this.UpdateShape(evt.getPoint());
