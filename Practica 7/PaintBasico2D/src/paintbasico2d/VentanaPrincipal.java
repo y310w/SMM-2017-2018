@@ -345,6 +345,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void MenuItemNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemNuevoActionPerformed
         VentanaInterna vi = new VentanaInterna(this);
+        
+        if(Desktop.getSelectedFrame() != null)
+            vi.setLocation(Desktop.getSelectedFrame().getLocation().x + 10, Desktop.getSelectedFrame().getLocation().y + 10);
+        
         Desktop.add(vi);
         vi.setVisible(true);
     }//GEN-LAST:event_MenuItemNuevoActionPerformed
