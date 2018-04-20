@@ -101,7 +101,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="LabelStatus">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Puntos"/>
+        <Property name="text" type="java.lang.String" value="Barra de Estado"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
             <BevelBorder bevelType="1"/>

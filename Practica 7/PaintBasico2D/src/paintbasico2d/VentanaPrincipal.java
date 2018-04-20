@@ -27,7 +27,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         initComponents();
 
         this.setTitle("Paint Básico 2D");
-        this.setSize(625, 600);
+        this.setSize(750, 650);
     }
 
     /**
@@ -76,7 +76,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        LabelStatus.setText("Puntos");
+        LabelStatus.setText("Barra de Estado");
         LabelStatus.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         getContentPane().add(LabelStatus, java.awt.BorderLayout.PAGE_END);
 
@@ -382,79 +382,112 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_CheckBoxMenuItemBarraAtribActionPerformed
 
     private void ToggleButtonPuntosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleButtonPuntosActionPerformed
-        if(this.getSelectedInternalWindow() != null)
+        this.LabelStatus.setText("Puntos");
+        if(this.getSelectedInternalWindow() != null){
             this.getSelectedInternalWindow().getLienzo2D().setForma(Formas.Punto);
+            this.getSelectedInternalWindow().getLienzo2D().repaint();
+        }
     }//GEN-LAST:event_ToggleButtonPuntosActionPerformed
 
     private void ToggleButtonLineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleButtonLineaActionPerformed
-        if(this.getSelectedInternalWindow() != null)
+        this.LabelStatus.setText("Línea");
+        if(this.getSelectedInternalWindow() != null){
             this.getSelectedInternalWindow().getLienzo2D().setForma(Formas.Linea);
+            this.getSelectedInternalWindow().getLienzo2D().repaint();
+        }
     }//GEN-LAST:event_ToggleButtonLineaActionPerformed
 
     private void ToggleButtonRectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleButtonRectActionPerformed
-        if(this.getSelectedInternalWindow() != null)
+        this.LabelStatus.setText("Rectangulo");
+        if(this.getSelectedInternalWindow() != null){
             this.getSelectedInternalWindow().getLienzo2D().setForma(Formas.Rectangulo);
+            this.getSelectedInternalWindow().getLienzo2D().repaint();
+        }
     }//GEN-LAST:event_ToggleButtonRectActionPerformed
 
     private void ToggleButtonElipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleButtonElipActionPerformed
-        if(this.getSelectedInternalWindow() != null)
+        this.LabelStatus.setText("Elipse");
+        if(this.getSelectedInternalWindow() != null){
             this.getSelectedInternalWindow().getLienzo2D().setForma(Formas.Elipse);
+            this.getSelectedInternalWindow().getLienzo2D().repaint();
+        }
     }//GEN-LAST:event_ToggleButtonElipActionPerformed
 
     private void ToggleButtonNegroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleButtonNegroActionPerformed
-        if(this.getSelectedInternalWindow() != null)
+        if(this.getSelectedInternalWindow() != null){
             this.getSelectedInternalWindow().getLienzo2D().setColor(this.ToggleButtonNegro.getBackground());
+            this.getSelectedInternalWindow().getLienzo2D().repaint();
+        }
     }//GEN-LAST:event_ToggleButtonNegroActionPerformed
 
     private void ToggleButtonRojoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleButtonRojoActionPerformed
-        if(this.getSelectedInternalWindow() != null)
+        if(this.getSelectedInternalWindow() != null){
            this.getSelectedInternalWindow().getLienzo2D().setColor(this.ToggleButtonRojo.getBackground());
+           this.getSelectedInternalWindow().getLienzo2D().repaint();
+        }
     }//GEN-LAST:event_ToggleButtonRojoActionPerformed
 
     private void ToggleButtonAzulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleButtonAzulActionPerformed
-        if(this.getSelectedInternalWindow() != null)
+        if(this.getSelectedInternalWindow() != null){
             this.getSelectedInternalWindow().getLienzo2D().setColor(this.ToggleButtonAzul.getBackground());
+            this.getSelectedInternalWindow().getLienzo2D().repaint();
+        }
     }//GEN-LAST:event_ToggleButtonAzulActionPerformed
 
     private void ToggleButtonBlancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleButtonBlancoActionPerformed
-        if(this.getSelectedInternalWindow() != null)
+        if(this.getSelectedInternalWindow() != null){
             this.getSelectedInternalWindow().getLienzo2D().setColor(this.ToggleButtonBlanco.getBackground());
+            this.getSelectedInternalWindow().getLienzo2D().repaint();
+        }
     }//GEN-LAST:event_ToggleButtonBlancoActionPerformed
 
     private void ToggleButtonAmarilloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleButtonAmarilloActionPerformed
-        if(this.getSelectedInternalWindow() != null)    
+        if(this.getSelectedInternalWindow() != null){   
             this.getSelectedInternalWindow().getLienzo2D().setColor(this.ToggleButtonAmarillo.getBackground());
+            this.getSelectedInternalWindow().getLienzo2D().repaint();
+        }
     }//GEN-LAST:event_ToggleButtonAmarilloActionPerformed
 
     private void ToggleButtonVerdeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleButtonVerdeActionPerformed
-        if(this.getSelectedInternalWindow() != null)
+        if(this.getSelectedInternalWindow() != null){
             this.getSelectedInternalWindow().getLienzo2D().setColor(this.ToggleButtonVerde.getBackground());
+            this.getSelectedInternalWindow().getLienzo2D().repaint();
+        }
     }//GEN-LAST:event_ToggleButtonVerdeActionPerformed
         
     private void CheckBoxRellenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxRellenoActionPerformed
-        if(this.getSelectedInternalWindow() != null)
+        if(this.getSelectedInternalWindow() != null){
             this.getSelectedInternalWindow().getLienzo2D().setRelleno(CheckBoxRelleno.isSelected());
+            this.getSelectedInternalWindow().getLienzo2D().repaint();
+        }
     }//GEN-LAST:event_CheckBoxRellenoActionPerformed
 
     private void CheckBoxAlisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxAlisarActionPerformed
-        if(this.getSelectedInternalWindow() != null)
+        if(this.getSelectedInternalWindow() != null){
             this.getSelectedInternalWindow().getLienzo2D().setAlisar(CheckBoxAlisar.isSelected());
+            this.getSelectedInternalWindow().getLienzo2D().repaint();
+        }
     }//GEN-LAST:event_CheckBoxAlisarActionPerformed
 
     private void CheckBoxTransActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxTransActionPerformed
-        if(this.getSelectedInternalWindow() != null)
+        if(this.getSelectedInternalWindow() != null){
             this.getSelectedInternalWindow().getLienzo2D().setTransparencia(CheckBoxTrans.isSelected());
+            this.getSelectedInternalWindow().getLienzo2D().repaint();
+        }
     }//GEN-LAST:event_CheckBoxTransActionPerformed
 
     private void CheckBoxEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxEditarActionPerformed
-        if(this.getSelectedInternalWindow() != null)
+        if(this.getSelectedInternalWindow() != null){
             this.getSelectedInternalWindow().getLienzo2D().setEditar(CheckBoxEditar.isSelected());
+            this.getSelectedInternalWindow().getLienzo2D().repaint();
+        }    
     }//GEN-LAST:event_CheckBoxEditarActionPerformed
 
     private void SpinnerGrosorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_SpinnerGrosorStateChanged
         if(this.getSelectedInternalWindow() != null){
             int grosor = (int) this.SpinnerGrosor.getValue();
             this.getSelectedInternalWindow().getLienzo2D().setStroke(grosor);
+            this.getSelectedInternalWindow().getLienzo2D().repaint();
         }
     }//GEN-LAST:event_SpinnerGrosorStateChanged
 

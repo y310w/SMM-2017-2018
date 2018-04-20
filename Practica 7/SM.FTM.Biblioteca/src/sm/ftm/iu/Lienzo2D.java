@@ -20,9 +20,10 @@ import java.awt.RenderingHints;
 
 import java.awt.Shape;
 import java.awt.geom.Point2D;
-import sm.ftm.graficos.MiElipse;
+import sm.ftm.graficos.MiPunto;
 import sm.ftm.graficos.MiLinea;
 import sm.ftm.graficos.MiRectangulo;
+import sm.ftm.graficos.MiElipse;
 
 /**
  *
@@ -147,9 +148,16 @@ public class Lienzo2D extends javax.swing.JPanel {
     }
     
     public Shape getSelectedShape(Point2D p){
-        for(Shape s:vShape)
+        for(Shape s:vShape){
             if(s.contains(p))
                 return s;
+              
+            if(s instanceof MiLinea){
+                if(((MiLinea)s).contains(p)){
+                    return s;
+                }   
+            } 
+        }
         
         return null;
     }
@@ -159,7 +167,7 @@ public class Lienzo2D extends javax.swing.JPanel {
         
         switch(forma){
             case Punto:
-                    s = new MiLinea(pi,pi);
+                    s = new MiPunto(pi);
                 break;
             case Linea:
                     s = new MiLinea(pi,pf);
@@ -176,44 +184,34 @@ public class Lienzo2D extends javax.swing.JPanel {
     }
     
     public void UpdateShape(Point2D pf){
-        MiLinea linea;
-        MiRectangulo rectangulo;
-        MiElipse elipse;
-    
         switch(forma){
             case Linea:
-                    linea = (MiLinea) s;
-                    linea.setPf(pf);
+                    ((MiLinea)s).setPf(pf);
                 break;
             case Rectangulo:
-                    rectangulo = (MiRectangulo) s;
-                    rectangulo.setPf(pf);
+                    ((MiRectangulo)s).setPf(pf);
                 break;
             case Elipse:
-                    elipse = (MiElipse) s;
-                    elipse.setPf(pf);
+                    ((MiElipse)s).setPf(pf);
                 break;
         }
     }
     
-    public void UpdatePositionShape(Point2D p){
-        MiLinea linea;
-        MiRectangulo rectangulo;
-        MiElipse elipse;
-    
+    public void UpdatePositionShape(Point2D p){ 
+        if(s instanceof MiPunto){
+            ((MiPunto)s).setLocation(p);
+        }
+        
         if(s instanceof MiLinea){
-            linea = (MiLinea) s;
-            linea.setLocation(p);
+            ((MiLinea)s).setLocation(p);
         }
         
         if(s instanceof MiRectangulo){
-            rectangulo = (MiRectangulo) s;
-            rectangulo.setLocation(p);
+            ((MiRectangulo)s).setLocation(p);
         }
         
         if(s instanceof MiElipse){
-            elipse = (MiElipse) s;
-            elipse.setLocation(p);
+            ((MiElipse)s).setLocation(p);
         }
     }
     
@@ -277,7 +275,6 @@ public class Lienzo2D extends javax.swing.JPanel {
 
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
         this.formMouseDragged(evt);
-        this.repaint();
     }//GEN-LAST:event_formMouseReleased
 
 

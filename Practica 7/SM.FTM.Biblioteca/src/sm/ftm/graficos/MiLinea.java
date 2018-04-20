@@ -30,7 +30,10 @@ public class MiLinea extends Line2D.Double{
     }
     
     public boolean isNear(Point2D p){
-        return this.ptLineDist(p)<-2.0;
+        if(this.getP1().equals(this.getP2()))
+            return this.getP1().distance(p) <= 5.0;
+        
+        return this.ptLineDist(p)<=2.0;
     }
     
     @Override
