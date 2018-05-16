@@ -7,17 +7,33 @@ package paintbasico2d;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Point;
 import java.awt.Stroke;
+import java.awt.Transparency;
+import java.awt.color.ColorSpace;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.awt.image.ByteLookupTable;
+import java.awt.image.ColorConvertOp;
 import java.awt.image.ColorModel;
+import java.awt.image.ComponentColorModel;
+import java.awt.image.ConvolveOp;
+import java.awt.image.DataBuffer;
+import java.awt.image.Kernel;
+import java.awt.image.LookupOp;
+import java.awt.image.LookupTable;
 import java.awt.image.RescaleOp;
 import java.awt.image.WritableRaster;
 import java.io.File;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
+import sm.ftm.imagen.SepiaOp;
 import sm.ftm.iu.Formas;
+import sm.image.KernelProducer;
+import sm.image.LookupTableProducer;
 
 /**
  *
@@ -34,7 +50,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         initComponents();
 
         this.setTitle("Paint Básico 2D");
-        this.setSize(1150, 700);
+        this.setSize(1150, 800);
     }
 
     /**
@@ -100,7 +116,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         CheckBoxMenuItemBarraForma = new javax.swing.JCheckBoxMenuItem();
         CheckBoxMenuItemBarraAtrib = new javax.swing.JCheckBoxMenuItem();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        MenuItemImgTam = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -267,10 +283,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED), "Brillo", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP));
 
-        SliderBrillo.setPreferredSize(new java.awt.Dimension(150, 29));
+        SliderBrillo.setMaximum(255);
+        SliderBrillo.setMinimum(-255);
+        SliderBrillo.setValue(0);
+        SliderBrillo.setPreferredSize(new java.awt.Dimension(100, 29));
         SliderBrillo.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 SliderBrilloStateChanged(evt);
+            }
+        });
+        SliderBrillo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SliderBrilloFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                SliderBrilloFocusLost(evt);
             }
         });
         jPanel1.add(SliderBrillo);
@@ -280,9 +307,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED), "Filtro", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP));
 
         ComboBoxFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Media", "Binomial", "Enfoque", "Relieve", "Laplacaino" }));
-        ComboBoxFiltro.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                ComboBoxFiltroItemStateChanged(evt);
+        ComboBoxFiltro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboBoxFiltroActionPerformed(evt);
             }
         });
         jPanel2.add(ComboBoxFiltro);
@@ -323,6 +350,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED), " ", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP));
 
         ButtonSeno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/sinusoidal.png"))); // NOI18N
+        ButtonSeno.setPreferredSize(new java.awt.Dimension(44, 28));
         ButtonSeno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonSenoActionPerformed(evt);
@@ -353,9 +381,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel5.add(ButtonBandas);
 
         ComboBoxPaleta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "sRGB", "YCC", "Grey", "YCbCr" }));
-        ComboBoxPaleta.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                ComboBoxPaletaItemStateChanged(evt);
+        ComboBoxPaleta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboBoxPaletaActionPerformed(evt);
             }
         });
         jPanel5.add(ComboBoxPaleta);
@@ -364,11 +392,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED), "Rotación", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP));
 
+        SliderRotacion.setMaximum(360);
         SliderRotacion.setValue(0);
         SliderRotacion.setPreferredSize(new java.awt.Dimension(100, 29));
         SliderRotacion.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 SliderRotacionStateChanged(evt);
+            }
+        });
+        SliderRotacion.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SliderRotacionFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                SliderRotacionFocusLost(evt);
             }
         });
         jPanel6.add(SliderRotacion);
@@ -498,9 +535,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jMenu1.setText("Imagen");
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem1.setText("Tamaño imagen");
-        jMenu1.add(jMenuItem1);
+        MenuItemImgTam.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_MASK));
+        MenuItemImgTam.setText("Tamaño imagen");
+        MenuItemImgTam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuItemImgTamActionPerformed(evt);
+            }
+        });
+        jMenu1.add(MenuItemImgTam);
 
         MenuBar.add(jMenu1);
 
@@ -523,7 +565,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         Desktop.add(vi);
         vi.setVisible(true);
         
-        BufferedImage img = new BufferedImage(500, 400, 2);
+        BufferedImage img = new BufferedImage(500, 400, BufferedImage.TYPE_INT_ARGB);
         img.createGraphics().setPaint(Color.WHITE);
         img.createGraphics().fill(new Rectangle2D.Float(0.0F, 0.0F, img.getWidth(), img.getHeight()));
         vi.getLienzo2DImagen().setImg(img);
@@ -589,7 +631,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         Desktop.add(vi);
         vi.setVisible(true);
         
-        BufferedImage img = new BufferedImage(500, 400, 2);
+        BufferedImage img = new BufferedImage(500, 400, BufferedImage.TYPE_INT_ARGB);
         img.createGraphics().setPaint(Color.WHITE);
         img.createGraphics().fill(new Rectangle2D.Float(0.0F, 0.0F, img.getWidth(), img.getHeight()));
         vi.getLienzo2DImagen().setImg(img);
@@ -707,79 +749,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ToggleButtonAlisarActionPerformed
 
-    private void SliderBrilloStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_SliderBrilloStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SliderBrilloStateChanged
-
-    private void ComboBoxFiltroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ComboBoxFiltroItemStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ComboBoxFiltroItemStateChanged
-
-    private void ButtonContrasteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonContrasteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ButtonContrasteActionPerformed
-
-    private void ButtonIluminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonIluminarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ButtonIluminarActionPerformed
-
-    private void ButtonOscurecerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonOscurecerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ButtonOscurecerActionPerformed
-
-    private void ButtonSenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSenoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ButtonSenoActionPerformed
-
-    private void ButtonSepiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSepiaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ButtonSepiaActionPerformed
-
-    private void ButtonBandasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBandasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ButtonBandasActionPerformed
-
-    private void ComboBoxPaletaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ComboBoxPaletaItemStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ComboBoxPaletaItemStateChanged
-
-    private void SliderRotacionStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_SliderRotacionStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SliderRotacionStateChanged
-
-    private void ButtonRot90ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonRot90ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ButtonRot90ActionPerformed
-
-    private void ButtonRot180ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonRot180ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ButtonRot180ActionPerformed
-
-    private void ButtonRot270ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonRot270ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ButtonRot270ActionPerformed
-
-    private void ButtonAumentarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAumentarActionPerformed
-        VentanaInterna vi = (VentanaInterna) (Desktop.getSelectedFrame());
-        if (vi != null) {
-            BufferedImage imgSource = vi.getLienzo2DImagen().getImg(false);
-            if(imgSource!=null){
-                try{
-                    RescaleOp rop = new RescaleOp(1.0F, 100.0F, null);
-                    BufferedImage imgdest = rop.filter(imgSource, null);
-                    vi.getLienzo2DImagen().setImg(imgdest);
-                    vi.getLienzo2DImagen().repaint();
-                } catch(IllegalArgumentException e){
-                    System.err.println(e.getLocalizedMessage());
-                }
-            }
-        }
-    }//GEN-LAST:event_ButtonAumentarActionPerformed
-
-    private void ButtonDisminuirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonDisminuirActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ButtonDisminuirActionPerformed
-
     private void ComboBoxColoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxColoresActionPerformed
         String color = (String) this.ComboBoxColores.getSelectedItem();
         Color c = null;
@@ -816,6 +785,398 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ComboBoxColoresActionPerformed
 
+    private void MenuItemImgTamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemImgTamActionPerformed
+        
+    }//GEN-LAST:event_MenuItemImgTamActionPerformed
+
+    private void SliderBrilloFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_SliderBrilloFocusGained
+        VentanaInterna vi = this.getSelectedInternalWindow();
+        
+        if(vi != null){
+            ColorModel cm = vi.getLienzo2DImagen().getImg().getColorModel();
+            WritableRaster raster = vi.getLienzo2DImagen().getImg().copyData(null);
+            boolean alfaPre = vi.getLienzo2DImagen().getImg().isAlphaPremultiplied();
+            this.imgSource =new BufferedImage(cm, raster, alfaPre, null);
+        }
+    }//GEN-LAST:event_SliderBrilloFocusGained
+
+    private void SliderBrilloFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_SliderBrilloFocusLost
+        this.imgSource = null;
+        this.SliderBrillo.setValue(0);
+    }//GEN-LAST:event_SliderBrilloFocusLost
+
+    private void SliderBrilloStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_SliderBrilloStateChanged
+        VentanaInterna vi = this.getSelectedInternalWindow();
+        if (vi != null && this.imgSource != null){
+            try{
+                RescaleOp rop = new RescaleOp(1.0f, this.SliderBrillo.getValue(), null);
+                BufferedImage imgDest = rop.filter(this.imgSource, null);
+                    
+                vi.getLienzo2DImagen().setImg(imgDest);
+                vi.getLienzo2DImagen().repaint();
+            } catch(IllegalArgumentException e){
+                System.err.println(e.getLocalizedMessage());
+            }
+        }
+    }//GEN-LAST:event_SliderBrilloStateChanged
+
+    private void ComboBoxFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxFiltroActionPerformed
+        VentanaInterna vi = this.getSelectedInternalWindow();
+        
+        if(vi != null){
+            this.imgSource = vi.getLienzo2DImagen().getImg();
+            
+            if(this.imgSource != null){
+                try{
+                    Kernel k = KernelProducer.createKernel(this.ComboBoxFiltro.getSelectedIndex());
+                    ConvolveOp cop = new ConvolveOp(k, ConvolveOp.EDGE_NO_OP, null);
+                
+                    BufferedImage imgSource = cop.filter(this.imgSource, null);
+                
+                    vi.getLienzo2DImagen().setImg(imgSource);
+                    vi.getLienzo2DImagen().repaint();
+                }catch (Exception e){
+                    System.err.println("Error en el filtro");
+                }
+            }
+        }
+    }//GEN-LAST:event_ComboBoxFiltroActionPerformed
+
+    private void ButtonContrasteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonContrasteActionPerformed
+        VentanaInterna vi = this.getSelectedInternalWindow();
+        
+        if(vi != null){
+            BufferedImage imgSource = vi.getLienzo2DImagen().getImg();
+            
+            if(imgSource != null){
+                try{
+                    int type = LookupTableProducer.TYPE_SFUNCION;
+                    LookupTable lt = LookupTableProducer.createLookupTable(type);
+                    LookupOp lop = new LookupOp(lt, null);
+                    lop.filter( imgSource, imgSource);
+                    vi.getLienzo2DImagen().repaint();
+                } catch(Exception e){
+                    System.err.println(e.getLocalizedMessage());
+                }
+            }
+        }
+    }//GEN-LAST:event_ButtonContrasteActionPerformed
+
+    private void ButtonIluminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonIluminarActionPerformed
+        VentanaInterna vi = this.getSelectedInternalWindow();
+        
+        if(vi != null){
+            BufferedImage imgSource = vi.getLienzo2DImagen().getImg();
+            
+            if(imgSource != null){
+                try{
+                    int type = LookupTableProducer.TYPE_ROOT;
+                    LookupTable lt = LookupTableProducer.createLookupTable(type);
+                    LookupOp lop = new LookupOp(lt, null);
+                    lop.filter( imgSource, imgSource);
+                    vi.getLienzo2DImagen().repaint();
+                } catch(Exception e){
+                    System.err.println(e.getLocalizedMessage());
+                }
+            }
+        }
+    }//GEN-LAST:event_ButtonIluminarActionPerformed
+
+    private void ButtonOscurecerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonOscurecerActionPerformed
+        VentanaInterna vi = this.getSelectedInternalWindow();
+        
+        if(vi != null){
+            BufferedImage imgSource = vi.getLienzo2DImagen().getImg();
+            
+            if(imgSource != null){
+                try{
+                    int type = LookupTableProducer.TYPE_POWER;
+                    LookupTable lt = LookupTableProducer.createLookupTable(type);
+                    LookupOp lop = new LookupOp(lt, null);
+                    lop.filter( imgSource, imgSource);
+                    vi.getLienzo2DImagen().repaint();
+                } catch(Exception e){
+                    System.err.println(e.getLocalizedMessage());
+                }
+            }
+        }
+    }//GEN-LAST:event_ButtonOscurecerActionPerformed
+
+    private LookupTable seno(double w){
+        double K = 255.0;
+         
+        byte[] lt = new byte[256];
+        
+        w = w / K;
+        
+        for(int i = 0; i <= 255; i++){
+            lt[i] = (byte)(K * Math.abs(Math.sin(Math.toRadians(i * w))));
+        }
+        
+        ByteLookupTable salida = new ByteLookupTable(0, lt);
+        return salida;
+    }
+    
+    private void ButtonSenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSenoActionPerformed
+        VentanaInterna vi = this.getSelectedInternalWindow();
+        
+        if(vi != null){
+            BufferedImage imgSource = vi.getLienzo2DImagen().getImg();
+            
+            if(imgSource != null){
+                try{
+                    LookupTable lt = this.seno(180);
+                    LookupOp lop = new LookupOp(lt, null);
+                    lop.filter( imgSource, imgSource);
+                    vi.getLienzo2DImagen().repaint();
+                } catch(Exception e){
+                    System.err.println(e.getLocalizedMessage());
+                }
+            }
+        }
+    }//GEN-LAST:event_ButtonSenoActionPerformed
+
+    private void SliderRotacionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_SliderRotacionFocusGained
+        VentanaInterna vi = this.getSelectedInternalWindow();
+        
+        if(vi != null){
+            this.imgSource = vi.getLienzo2DImagen().getImg();
+        }
+    }//GEN-LAST:event_SliderRotacionFocusGained
+
+    private void SliderRotacionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_SliderRotacionFocusLost
+        this.imgSource = null;
+        this.SliderRotacion.setValue(0);
+    }//GEN-LAST:event_SliderRotacionFocusLost
+
+    private void SliderRotacionStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_SliderRotacionStateChanged
+        VentanaInterna vi = this.getSelectedInternalWindow();
+        
+        if(vi != null){         
+            if(imgSource != null){
+                try{
+                    double r = Math.toRadians(this.SliderRotacion.getValue());
+                    Point p = new Point(imgSource.getWidth()/2, imgSource.getHeight()/2);
+                    AffineTransform at = AffineTransform.getRotateInstance(r,p.x,p.y);
+                    AffineTransformOp atop;
+                    atop = new AffineTransformOp(at,2);
+                    BufferedImage imgdest = atop.filter(imgSource, null);
+                    vi.getLienzo2DImagen().setImg(imgdest);
+                    vi.getLienzo2DImagen().repaint();
+                }catch (Exception e){
+                    System.err.println(e.getLocalizedMessage());
+                }
+            }
+        } 
+    }//GEN-LAST:event_SliderRotacionStateChanged
+
+    private void ButtonRot90ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonRot90ActionPerformed
+        VentanaInterna vi = this.getSelectedInternalWindow();
+        double r = Math.toRadians(90);
+        
+        if(vi != null){
+            this.imgSource = vi.getLienzo2DImagen().getImg();
+            
+            if(this.imgSource != null){
+                try{
+                    Point p = new Point(imgSource.getWidth()/2, imgSource.getHeight()/2);
+                    AffineTransform at = AffineTransform.getRotateInstance(r,p.x,p.y);
+                    AffineTransformOp atop;
+                    atop = new AffineTransformOp(at,AffineTransformOp.TYPE_BILINEAR);
+                    BufferedImage imgdest = atop.filter(imgSource, null);
+                    vi.getLienzo2DImagen().setImg(imgdest);
+                    vi.getLienzo2DImagen().repaint();
+                }catch (Exception e){
+                    System.err.println(e.getLocalizedMessage());
+                }
+            }
+        } 
+    }//GEN-LAST:event_ButtonRot90ActionPerformed
+
+    private void ButtonRot180ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonRot180ActionPerformed
+        VentanaInterna vi = this.getSelectedInternalWindow();
+        double r = Math.toRadians(180);
+        
+        if(vi != null){
+            this.imgSource = vi.getLienzo2DImagen().getImg();
+            
+            if(this.imgSource != null){
+                try{
+                    Point p = new Point(imgSource.getWidth()/2, imgSource.getHeight()/2);
+                    AffineTransform at = AffineTransform.getRotateInstance(r,p.x,p.y);
+                    AffineTransformOp atop;
+                    atop = new AffineTransformOp(at,AffineTransformOp.TYPE_BILINEAR);
+                    BufferedImage imgdest = atop.filter(imgSource, null);
+                    vi.getLienzo2DImagen().setImg(imgdest);
+                    vi.getLienzo2DImagen().repaint();
+                }catch (Exception e){
+                    System.err.println(e.getLocalizedMessage());
+                }
+            }
+        } 
+    }//GEN-LAST:event_ButtonRot180ActionPerformed
+
+    private void ButtonRot270ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonRot270ActionPerformed
+        VentanaInterna vi = this.getSelectedInternalWindow();
+        double r = Math.toRadians(270);
+        
+        if(vi != null){
+            this.imgSource = vi.getLienzo2DImagen().getImg();
+            
+            if(this.imgSource != null){
+                try{
+                    Point p = new Point(imgSource.getWidth()/2, imgSource.getHeight()/2);
+                    AffineTransform at = AffineTransform.getRotateInstance(r,p.x,p.y);
+                    AffineTransformOp atop;
+                    atop = new AffineTransformOp(at,AffineTransformOp.TYPE_BILINEAR);
+                    BufferedImage imgdest = atop.filter(imgSource, null);
+                    vi.getLienzo2DImagen().setImg(imgdest);
+                    vi.getLienzo2DImagen().repaint();
+                }catch (Exception e){
+                    System.err.println(e.getLocalizedMessage());
+                }
+            }
+        } 
+    }//GEN-LAST:event_ButtonRot270ActionPerformed
+
+    private void ButtonAumentarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAumentarActionPerformed
+        VentanaInterna vi = this.getSelectedInternalWindow();
+        
+        if(vi != null){
+            this.imgSource = vi.getLienzo2DImagen().getImg();
+            
+            if(this.imgSource != null){
+                try{
+                    AffineTransform at = AffineTransform.getScaleInstance(1.25, 1.25);
+                    AffineTransformOp atop;
+                    atop = new AffineTransformOp(at,2);
+                    BufferedImage imgdest = atop.filter(imgSource, null);
+                    vi.getLienzo2DImagen().setImg(imgdest);
+                    vi.getLienzo2DImagen().repaint();
+                }catch (Exception e){
+                    System.err.println(e.getLocalizedMessage());
+                }
+            }
+        }
+    }//GEN-LAST:event_ButtonAumentarActionPerformed
+
+    private void ButtonDisminuirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonDisminuirActionPerformed
+        VentanaInterna vi = this.getSelectedInternalWindow();
+        
+        if(vi != null){
+            this.imgSource = vi.getLienzo2DImagen().getImg();
+            
+            if(this.imgSource != null){
+                try{
+                    AffineTransform at = AffineTransform.getScaleInstance(0.75, 0.75);
+                    AffineTransformOp atop;
+                    atop = new AffineTransformOp(at,2);
+                    BufferedImage imgdest = atop.filter(imgSource, null);
+                    vi.getLienzo2DImagen().setImg(imgdest);
+                    vi.getLienzo2DImagen().repaint();
+                }catch (Exception e){
+                    System.err.println(e.getLocalizedMessage());
+                }
+            }
+        }
+    }//GEN-LAST:event_ButtonDisminuirActionPerformed
+
+    private BufferedImage getBanda(BufferedImage srcImagen, int iBanda){
+        //Creamos el modelo de color de la nueva imagen basado en un espcio de color GRAY
+        ColorSpace cs = ColorSpace.getInstance(ColorSpace.CS_GRAY);
+        ComponentColorModel cm = new ComponentColorModel(cs, false, false, Transparency.OPAQUE, DataBuffer.TYPE_BYTE);
+        //Creamos el nuevo raster a partir del raster de la imagen original
+        int bandList[] = {iBanda};
+        WritableRaster bandRaster = (WritableRaster)srcImagen.getRaster().createWritableChild(0,0, srcImagen.getWidth(), srcImagen.getHeight(), 0, 0, bandList);
+        //Creamos una nueva imagen que contiene como raster el correspondiente a la banda
+        BufferedImage imgBanda = new BufferedImage(cm, bandRaster, false, null);
+        
+        return imgBanda;
+    }
+        
+    private void ButtonBandasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBandasActionPerformed
+        VentanaInterna vi = this.getSelectedInternalWindow();
+        
+        if(vi != null){
+            this.imgSource = vi.getLienzo2DImagen().getImg();
+            if(imgSource != null){
+                int max = imgSource.getRaster().getNumBands();
+                for(int i = 0; i < max; i++){
+                    BufferedImage banda = this.getBanda(imgSource, i);
+                    VentanaInterna vi1 = new VentanaInterna(this);
+                    vi1.getLienzo2DImagen().setImg(banda);
+                    vi1.setLocation(Desktop.getSelectedFrame().getLocation().x + 10, Desktop.getSelectedFrame().getLocation().y + 10);
+        
+                    Desktop.add(vi1);
+                    vi1.setTitle(vi.getTitle() + " [banda " + i + "]");
+                    vi1.setVisible(true);   
+                }
+            }
+        }
+    }//GEN-LAST:event_ButtonBandasActionPerformed
+
+    private void ComboBoxPaletaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxPaletaActionPerformed
+        String banda = (String) this.ComboBoxPaleta.getSelectedItem();
+        ColorSpace cs = null;
+        
+        VentanaInterna vi = this.getSelectedInternalWindow();
+        BufferedImage imgSource = this.getSelectedInternalWindow().getLienzo2DImagen().getImg();
+        BufferedImage imgSalida = null;
+        
+        if(imgSource != null && vi != null){
+            switch(banda){
+                case "sRGB":
+                        if(!imgSource.getColorModel().getColorSpace().isCS_sRGB()){
+                            cs = ColorSpace.getInstance(ColorSpace.CS_sRGB);
+                            ColorConvertOp cop = new ColorConvertOp(cs, null);
+                            imgSalida = cop.filter(imgSource, null);
+                        }
+                    break;
+
+                case "YCC":
+                        if(imgSource.getColorModel().getColorSpace().isCS_sRGB()){
+                            cs = ColorSpace.getInstance(ColorSpace.CS_PYCC);
+                            ColorConvertOp cop = new ColorConvertOp(cs, null);
+                            imgSalida = cop.filter(imgSource, null);
+                        }
+                    break;
+
+                case "Grey":
+                        if(imgSource.getColorModel().getColorSpace().isCS_sRGB()){
+                            cs = ColorSpace.getInstance(ColorSpace.CS_GRAY);
+                            ColorConvertOp cop = new ColorConvertOp(cs, null);
+                            imgSalida = cop.filter(imgSource, null);
+                        }
+                    break;
+
+            }
+            
+            VentanaInterna vi1 = new VentanaInterna(this);
+            vi1.getLienzo2DImagen().setImg(imgSalida);
+            vi1.setLocation(vi.getLocation().x + 10, vi.getLocation().y + 10);
+        
+            Desktop.add(vi1);
+            vi1.setTitle(vi.getTitle() + "[" + banda + "]");
+            vi1.setVisible(true);   
+        }
+    }//GEN-LAST:event_ComboBoxPaletaActionPerformed
+
+    private void ButtonSepiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSepiaActionPerformed
+        VentanaInterna vi = this.getSelectedInternalWindow();
+        
+        if(vi != null){
+            BufferedImage imgSource = vi.getLienzo2DImagen().getImg();
+            
+            if(imgSource != null){
+                SepiaOp op = new SepiaOp();
+                op.filter(imgSource, imgSource);
+                vi.getLienzo2DImagen().setImg(imgSource);
+                vi.getLienzo2DImagen().repaint();
+            }
+        }
+    }//GEN-LAST:event_ButtonSepiaActionPerformed
+
+    
     /**
      * @param args the command line arguments
      */
@@ -849,6 +1210,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu MenuEdicion;
     private javax.swing.JMenuItem MenuItemAbrir;
     private javax.swing.JMenuItem MenuItemGuardar;
+    private javax.swing.JMenuItem MenuItemImgTam;
     private javax.swing.JMenuItem MenuItemNuevo;
     private javax.swing.JSlider SliderBrillo;
     private javax.swing.JSlider SliderRotacion;
@@ -863,7 +1225,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     protected javax.swing.JToggleButton ToggleButtonTrans;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
