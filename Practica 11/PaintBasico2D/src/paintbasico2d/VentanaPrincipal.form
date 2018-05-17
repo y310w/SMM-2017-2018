@@ -653,6 +653,8 @@
                 <Component class="javax.swing.JSlider" name="SliderRotacion">
                   <Properties>
                     <Property name="maximum" type="int" value="360"/>
+                    <Property name="minorTickSpacing" type="int" value="50"/>
+                    <Property name="paintTicks" type="boolean" value="true"/>
                     <Property name="value" type="int" value="0"/>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[100, 29]"/>

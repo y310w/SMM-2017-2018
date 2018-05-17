@@ -393,6 +393,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED), "Rotación", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP));
 
         SliderRotacion.setMaximum(360);
+        SliderRotacion.setMinorTickSpacing(50);
+        SliderRotacion.setPaintTicks(true);
         SliderRotacion.setValue(0);
         SliderRotacion.setPreferredSize(new java.awt.Dimension(100, 29));
         SliderRotacion.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -597,10 +599,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             int resp = dlg.showSaveDialog(this);
             if (resp == JFileChooser.APPROVE_OPTION) {
                 try {
-                    BufferedImage img = vi.getLienzo2DImagen().getImg(true);
+                    BufferedImage img = vi.getLienzo2DImagen().getImg(false);
                     if (img != null) {
                         File f = dlg.getSelectedFile();
-                        ImageIO.write(img, "jpg", f);
+                        ImageIO.write(img, "png", f);
                         vi.setTitle(f.getName());
                     }
                 }catch (Exception ex) {
