@@ -65,3 +65,8 @@ hs_err_pid*
 Practica 11/iconos/Thumbs\.db
 
 *.db
+/Practica 13/SM.FTM.Biblioteca/dist/
+/Proyecto/Proyecto/nbproject/private/
+/Practica 14/SM.FTM.Biblioteca/dist/
+/Proyecto/Proyecto-Paint/nbproject/private/
+/Proyecto/SM.FTM.Biblioteca/nbproject/private/
