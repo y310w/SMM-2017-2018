@@ -6,6 +6,8 @@
 package sm.ftm.graficos;
 
 import java.awt.Rectangle;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
@@ -15,38 +17,10 @@ import java.awt.geom.Rectangle2D;
  */
 public class TrazoLibre extends Shape{
 
-    public TrazoLibre(Shape p) {
-        super(p);
+    public TrazoLibre(Shape s, Point2D p) {
+        super(s);
+        this.formainterna = new GeneralPath(GeneralPath.WIND_EVEN_ODD);
+        
+        ((GeneralPath) this.formainterna).moveTo(p.getX(), p.getY());
     }
-
-    @Override
-    public boolean contains(Point2D p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean contains(double x, double y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean contains(double x, double y, double w, double h) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean contains(Rectangle2D r) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    @Override
-    public Rectangle getBounds() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Rectangle2D getBounds2D() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }

@@ -5,9 +5,8 @@
  */
 package sm.ftm.graficos;
 
-import java.awt.Rectangle;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
+import java.awt.geom.QuadCurve2D;
 
 /**
  *
@@ -15,38 +14,24 @@ import java.awt.geom.Rectangle2D;
  */
 public class Curva extends Shape{
 
-    public Curva(Shape p) {
-        super(p);
-    }
-
-    @Override
-    public boolean contains(Point2D p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean contains(double x, double y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean contains(double x, double y, double w, double h) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean contains(Rectangle2D r) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Curva(Shape s) {
+        super(s);
+        this.formainterna = new QuadCurve2D.Double();
+        this.puntoCtrl = new Point2D.Double();
     }
     
-    @Override
-    public Rectangle getBounds() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Rectangle2D getBounds2D() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Curva(Shape s, Point2D p){
+        super(s);
+        this.formainterna = new QuadCurve2D.Double(p.getX(), p.getY(), p.getX(), p.getY(), p.getX(), p.getY());
     }
     
+    public void setPCtrl(Point2D p){
+        this.puntoCtrl.setLocation(p);
+    }
+    
+    public void setPf(Point2D p){
+        ((QuadCurve2D) this.formainterna).setCurve(((QuadCurve2D) this.formainterna).getP1(), this.puntoCtrl, p);
+    }
+    
+    private Point2D puntoCtrl;
 }

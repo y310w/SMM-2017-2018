@@ -19,7 +19,6 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import proyecto.paint.VentanaInterna.*;
 import sm.ftm.graficos.Forma;
-import sm.ftm.ui.ColorChooserButton;
 
 /**
  *
@@ -62,8 +61,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         ToggleButtonTrazoLibre = new javax.swing.JToggleButton();
         ToggleButtonMover = new javax.swing.JToggleButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
-        ButtonColorTrazo = new ColorChooserButton(Color.BLACK);
-        ButtonColorRelleno = new ColorChooserButton(Color.WHITE);
+        ButtonColorTrazo = new javax.swing.JButton();
+        ButtonColorRelleno = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JToolBar.Separator();
         ComboBoxTrazo = new javax.swing.JComboBox<>();
         SpinnerGrosor = new javax.swing.JSpinner();
@@ -276,19 +275,34 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         BarraHerramientas.add(ToggleButtonMover);
         BarraHerramientas.add(jSeparator2);
 
+        ButtonColorTrazo.setBackground(new java.awt.Color(0, 0, 0));
+        ButtonColorTrazo.setToolTipText("Color trazo");
+        ButtonColorTrazo.setBorderPainted(false);
         ButtonColorTrazo.setFocusable(false);
         ButtonColorTrazo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ButtonColorTrazo.setOpaque(true);
+        ButtonColorTrazo.setPreferredSize(new java.awt.Dimension(25, 25));
         ButtonColorTrazo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ButtonColorTrazo.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                ButtonColorTrazoPropertyChange(evt);
+        ButtonColorTrazo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonColorTrazoActionPerformed(evt);
             }
         });
         BarraHerramientas.add(ButtonColorTrazo);
 
+        ButtonColorRelleno.setBackground(new java.awt.Color(255, 255, 255));
+        ButtonColorRelleno.setToolTipText("Color relleno");
+        ButtonColorRelleno.setBorderPainted(false);
         ButtonColorRelleno.setFocusable(false);
         ButtonColorRelleno.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ButtonColorRelleno.setOpaque(true);
+        ButtonColorRelleno.setPreferredSize(new java.awt.Dimension(25, 25));
         ButtonColorRelleno.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        ButtonColorRelleno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonColorRellenoActionPerformed(evt);
+            }
+        });
         BarraHerramientas.add(ButtonColorRelleno);
         BarraHerramientas.add(jSeparator3);
 
@@ -792,15 +806,33 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ToggleButtonMoverActionPerformed
 
-    private void ButtonColorTrazoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_ButtonColorTrazoPropertyChange
+    private void ButtonColorTrazoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonColorTrazoActionPerformed
+        Color colorBackground = ButtonColorTrazo.getBackground();
+        
+        Color background = JColorChooser.showDialog(null, "Escoja un color", colorBackground);
+        
+        if (background != null)
+            ButtonColorTrazo.setBackground(background);
+        
+        if( vi != null ){
+            vi.getLienzo2DImagen().getShape().setColorTrazo(ButtonColorTrazo.getBackground());
+        }
+    }//GEN-LAST:event_ButtonColorTrazoActionPerformed
+
+    private void ButtonColorRellenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonColorRellenoActionPerformed
+        Color colorBackground = ButtonColorTrazo.getBackground();
+        
+        Color background = JColorChooser.showDialog(null, "Escoja un color", colorBackground);
+        
+        if (background != null)
+            ButtonColorTrazo.setBackground(background);
+        
         VentanaInternaImagen vi = this.getSelectedInternalWindow();
         
-        if(vi != null){
-            Color color = ((ColorChooserButton)ButtonColorTrazo).getSelectedColor();
-            vi.getLienzo2DImagen().getShape().setColorTrazo(color);
-            vi.getLienzo2DImagen().repaint();
+        if( vi != null ){
+            vi.getLienzo2DImagen().getShape().setColorerelleno(ButtonColorTrazo.getBackground());
         }
-    }//GEN-LAST:event_ButtonColorTrazoPropertyChange
+    }//GEN-LAST:event_ButtonColorRellenoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BarraEstado;

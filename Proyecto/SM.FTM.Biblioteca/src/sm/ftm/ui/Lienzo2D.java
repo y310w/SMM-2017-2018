@@ -68,38 +68,57 @@ public class Lienzo2D extends javax.swing.JPanel {
         return null;
     }
     
-    public sm.ftm.graficos.Shape CreateShape(Point2D pi, Point2D pf){  
+    public sm.ftm.graficos.Shape CreateShape(int num, Point2D p){  
         sm.ftm.graficos.Shape s = null;
         
         switch(this.getShape().getForma()){
             case POINT:
-                    s = new Punto(getShape(),pi);
-                break;
+                s = new Punto(this.getShape(), p);
+            break;
+            
             case LINE:
-                    s = new Linea(getShape(),pi,pf);
-                break;
+                s = new Linea(this.getShape(), p, p);
+            break;
+            
             case RECTANGLE:
-                    s = new Rectangulo(getShape(),pi,pf);
-                break;
+                s = new Rectangulo(this.getShape(), p, p);
+            break;
+            
             case ELLIPSE:
-                    s = new Elipse(getShape(),pi,pf);
-                break;
+                s = new Elipse(this.getShape(), p, p);
+            break;
+            
+            case CURVE:
+                if(this.getShape() != null && this.getShape() instanceof Curva)
+                    ((Curva) this.getShape()).setPCtrl(p);
+                else
+                    s = new Curva(this.getShape(), p);
+            break;
         }
         
         return s;
     }
     
-    public void UpdateShape(Point2D pf){
+    public void UpdateShape(Point2D p){
         switch(this.getShape().getForma()){
             case LINE:
-                    ((Linea)this.getShape()).setPF(pf);
-                break;
+                ((Linea) this.getShape()).setPF(p);
+            break;
+            
             case RECTANGLE:
-                    ((Rectangulo)this.getShape()).setPf(pf);
-                break;
+                ((Rectangulo) this.getShape()).setPf(p);
+            break;
+            
             case ELLIPSE:
-                    ((Elipse)this.getShape()).setPf(pf);
-                break;
+                ((Elipse) this.getShape()).setPf(p);
+            break;
+            
+            case CURVE:
+                if(this.getShape() != null)
+                    ((Curva) this.getShape()).setPf(p);
+                else
+                    this.CreateShape(1, p);
+            break;
         }
     }
     
@@ -162,7 +181,8 @@ public class Lienzo2D extends javax.swing.JPanel {
             this.s = this.getSelectedShape(evt.getPoint());
         }else{*/
             pAux = evt.getPoint();
-            this.s = this.CreateShape(pAux, pAux);
+            int num = evt.getClickCount();
+            this.s = this.CreateShape(num,pAux);
             vShape.add(this.s);
         //}
     }//GEN-LAST:event_formMousePressed
