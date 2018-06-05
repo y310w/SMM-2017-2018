@@ -5,17 +5,22 @@
  */
 package proyecto.paint.VentanaInterna;
 
+import proyecto.paint.VentanaPrincipal;
+import sm.ftm.ui.Lienzo2DImagen;
+
 /**
  *
  * @author thejoker
  */
-public class VentanaInternaImagen extends VentanaInterna {
+public class VentanaInternaImagen extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form VentanaInternaImagen
      */
-    public VentanaInternaImagen() {
+    public VentanaInternaImagen (){
         initComponents();
+        
+        this.setTitle("Lienzo");
     }
 
     /**
@@ -27,21 +32,39 @@ public class VentanaInternaImagen extends VentanaInterna {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+        jScrollPane1 = new javax.swing.JScrollPane();
+        lienzo2DImagen = new sm.ftm.ui.Lienzo2DImagen();
+
+        setClosable(true);
+        setMaximizable(true);
+        setResizable(true);
+        getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        javax.swing.GroupLayout lienzo2DImagenLayout = new javax.swing.GroupLayout(lienzo2DImagen);
+        lienzo2DImagen.setLayout(lienzo2DImagenLayout);
+        lienzo2DImagenLayout.setHorizontalGroup(
+            lienzo2DImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 376, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+        lienzo2DImagenLayout.setVerticalGroup(
+            lienzo2DImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 254, Short.MAX_VALUE)
         );
+
+        getContentPane().add(lienzo2DImagen, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
+    /**
+     * @return the lienzo2DImagen
+     */
+    public Lienzo2DImagen getLienzo2DImagen() {
+        return lienzo2DImagen;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jScrollPane1;
+    private sm.ftm.ui.Lienzo2DImagen lienzo2DImagen;
     // End of variables declaration//GEN-END:variables
 }

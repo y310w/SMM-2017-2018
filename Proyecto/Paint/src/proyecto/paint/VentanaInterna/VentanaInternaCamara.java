@@ -5,19 +5,66 @@
  */
 package proyecto.paint.VentanaInterna;
 
+import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.WebcamPanel;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import proyecto.paint.VentanaPrincipal;
+
 /**
  *
  * @author thejoker
  */
-public class VentanaInternaCamara extends VentanaInterna {
+public class VentanaInternaCamara extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form VentanaInternaCamara
      */
     public VentanaInternaCamara() {
         initComponents();
+        camara = Webcam.getDefault();
+        
+        Dimension resoluciones[] = camara.getViewSizes();
+        Dimension maxRes = resoluciones[resoluciones.length - 1];
+        camara.setViewSize(maxRes);
+        if (camara != null) {
+            WebcamPanel areaVisual = new WebcamPanel(getCamara());
+            if (areaVisual != null) {
+                getContentPane().add(areaVisual, BorderLayout.CENTER);
+                pack();
+            }
+        }
     }
 
+    /**
+     * @return the camara
+     */
+    public Webcam getCamara() {
+        return camara;
+    }
+
+    /**
+     * @param camara the camara to set
+     */
+    public void setCamara(Webcam camara) {
+        this.camara = camara;
+    }
+    
+    public static VentanaInternaCamara getInstance() {
+        VentanaInternaCamara v = new VentanaInternaCamara();
+        return (v.getCamara() != null ? v : null);
+    }
+     
+    public void close() {
+        if (getCamara() != null) {
+            try {
+                getCamara().close();
+            } catch (Exception e) {
+                System.err.println("VentanaInternaJMFPlayer: " + e);
+            }
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,21 +74,11 @@ public class VentanaInternaCamara extends VentanaInterna {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
-        );
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
+    private Webcam camara = null;
 }

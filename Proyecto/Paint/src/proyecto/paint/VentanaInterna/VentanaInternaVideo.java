@@ -5,17 +5,19 @@
  */
 package proyecto.paint.VentanaInterna;
 
+import proyecto.paint.VentanaPrincipal;
+
 /**
  *
  * @author thejoker
  */
-public class VentanaInternaVideo extends VentanaInterna {
+public class VentanaInternaVideo extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form VentanaInternaVideo
      */
     public VentanaInternaVideo() {
-        initComponents();
+        
     }
 
     /**
