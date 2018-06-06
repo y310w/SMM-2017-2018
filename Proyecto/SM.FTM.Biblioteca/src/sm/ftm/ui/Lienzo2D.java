@@ -68,7 +68,7 @@ public class Lienzo2D extends javax.swing.JPanel {
         return null;
     }
     
-    public sm.ftm.graficos.Shape CreateShape(int num, Point2D p){  
+    public void CreateShape(int num, Point2D p){  
         sm.ftm.graficos.Shape s = null;
         
         switch(this.getShape().getForma()){
@@ -77,7 +77,7 @@ public class Lienzo2D extends javax.swing.JPanel {
             break;
             
             case LINE:
-                s = new Linea(this.getShape(), p, p);
+                 s = new Linea(this.getShape(), p, p);
             break;
             
             case RECTANGLE:
@@ -89,16 +89,25 @@ public class Lienzo2D extends javax.swing.JPanel {
             break;
             
             case CURVE:
-                if(this.getShape() != null && this.getShape() instanceof Curva)
+                if (this.getShape() != null && this.getShape() instanceof Curva){
                     ((Curva) this.getShape()).setPCtrl(p);
-                else
-                    s = new Curva(this.getShape(), p);
+                    this.UpdateShape(p);
+                }else
+                    s = new Curva(this.getShape(),p);
+            break;
+            
+            default:
+                s = null;
             break;
         }
         
-        return s;
+        this.s = s;
     }
     
+    /**
+     *
+     * @param p
+     */
     public void UpdateShape(Point2D p){
         switch(this.getShape().getForma()){
             case LINE:
@@ -114,11 +123,10 @@ public class Lienzo2D extends javax.swing.JPanel {
             break;
             
             case CURVE:
-                if(this.getShape() != null)
-                    ((Curva) this.getShape()).setPf(p);
+                if(((Curva) this.getShape()).getPCtrl() == null)
+                    CreateShape(1,p);
                 else
-                    this.CreateShape(1, p);
-            break;
+                    ((Curva) this.getShape()).setPf(p);
         }
     }
     
@@ -182,8 +190,9 @@ public class Lienzo2D extends javax.swing.JPanel {
         }else{*/
             pAux = evt.getPoint();
             int num = evt.getClickCount();
-            this.s = this.CreateShape(num,pAux);
-            vShape.add(this.s);
+            this.CreateShape(num,pAux);
+            if( this.s != null)
+                vShape.add(this.s);
         //}
     }//GEN-LAST:event_formMousePressed
 
@@ -193,7 +202,8 @@ public class Lienzo2D extends javax.swing.JPanel {
                 this.UpdatePositionShape(evt.getPoint());
             }    
         }else*/
-            this.UpdateShape(evt.getPoint());
+            if(this.getShape() != null)
+                this.UpdateShape(evt.getPoint());
         this.repaint();
     }//GEN-LAST:event_formMouseDragged
 
