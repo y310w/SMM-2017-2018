@@ -5,6 +5,11 @@
  */
 package proyecto.paint;
 
+import com.sun.jna.Native;
+import uk.co.caprica.vlcj.binding.LibVlc;
+import uk.co.caprica.vlcj.discovery.NativeDiscovery;
+import uk.co.caprica.vlcj.runtime.RuntimeUtil;
+
 /**
  *
  * @author thejoker
@@ -42,6 +47,9 @@ public class Paint {
         java.awt.EventQueue.invokeLater(() -> {
             new VentanaPrincipal().setVisible(true);
         });
+        
+        boolean ok = new NativeDiscovery().discover();
+        Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
     }
     
 }

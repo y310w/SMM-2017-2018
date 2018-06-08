@@ -23,7 +23,7 @@ public class TritanopiaOp extends BufferedImageOpAdapter{
     public TritanopiaOp(){
     
     }
-    
+
     @Override
     public BufferedImage filter(BufferedImage src, BufferedImage dest){
         if(src == null){

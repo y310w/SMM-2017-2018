@@ -74,3 +74,10 @@ Practica 11/iconos/Thumbs\.db
 /Proyecto/Paint/dist/
 /Proyecto/SM.FTM.Biblioteca/build/
 /Proyecto/SM.FTM.Biblioteca/dist/
+*.html
+
+Proyecto/javadoc/package-list
+
+*.js
+
+Proyecto/javadoc/stylesheet\.css

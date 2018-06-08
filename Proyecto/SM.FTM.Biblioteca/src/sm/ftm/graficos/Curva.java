@@ -5,8 +5,10 @@
  */
 package sm.ftm.graficos;
 
+import java.awt.Dimension;
 import java.awt.geom.Point2D;
 import java.awt.geom.QuadCurve2D;
+import java.awt.geom.Rectangle2D;
 
 /**
  * Clase curva que hereda de Shape
@@ -32,8 +34,10 @@ public class Curva extends Shape{
      */
     public Curva(Shape s, Point2D p){
         super(s);
+        this.puntoCtrl = new Point2D.Double(20,20);
         this.formainterna = new QuadCurve2D.Double(p.getX(), p.getY(), p.getX(), p.getY(), p.getX(), p.getY());
     }
+    
     
     /**
      * Establece el punto de control de la curva
@@ -41,6 +45,7 @@ public class Curva extends Shape{
      */
     public void setPCtrl(Point2D p){
         this.puntoCtrl = p;
+        ((QuadCurve2D) this.formainterna).setCurve(((QuadCurve2D) this.formainterna).getP1(), p, this.puntoF);
     }
     
     /**
@@ -73,6 +78,13 @@ public class Curva extends Shape{
         return this.puntoF;
     }
     
+    /**
+     * Establece la localización del rectangulo
+     * @param p
+     */
+    public void setLocation(Point2D p){
+       
+    }
     /**
      * Punto inicial del rectangulo
      */

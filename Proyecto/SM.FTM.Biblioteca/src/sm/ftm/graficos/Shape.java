@@ -309,6 +309,7 @@ public class Shape implements java.awt.Shape {
     /**
      * figura actual creada desde Lienzo2D
      */
+   
     protected java.awt.Shape formainterna;
     
     /**

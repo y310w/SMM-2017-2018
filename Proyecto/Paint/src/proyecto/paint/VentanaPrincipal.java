@@ -98,7 +98,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         ButtonStop = new javax.swing.JButton();
         ComboBoxListaReproduccion = new javax.swing.JComboBox<>();
         ButtonRecord = new javax.swing.JButton();
-        LabelGrabar = new javax.swing.JLabel();
         jSeparator7 = new javax.swing.JToolBar.Separator();
         ToggleButtonWebcam = new javax.swing.JToggleButton();
         ButtonCaptura = new javax.swing.JButton();
@@ -121,7 +120,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         ButtonDeuteranopia = new javax.swing.JButton();
         ButtonProtanopia = new javax.swing.JButton();
         ButtonTritanopia = new javax.swing.JButton();
-        jButton15 = new javax.swing.JButton();
+        ButtonInfrarojos = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         ButtonBandas = new javax.swing.JButton();
         ComboBoxPaleta = new javax.swing.JComboBox<>();
@@ -147,7 +146,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         ButtonEFrente = new javax.swing.JButton();
         ButtonEAtras = new javax.swing.JButton();
         ButtonEDELANTE = new javax.swing.JButton();
-        ComboBoxFiguras = new javax.swing.JComboBox<>();
         Menu = new javax.swing.JMenuBar();
         MenuArchivo = new javax.swing.JMenu();
         MenuNuevo = new javax.swing.JMenuItem();
@@ -429,6 +427,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         SliderTransparencia.setPaintTicks(true);
         SliderTransparencia.setToolTipText("Transparencia");
         SliderTransparencia.setValue(100);
+        SliderTransparencia.setPreferredSize(new java.awt.Dimension(100, 38));
         SliderTransparencia.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 SliderTransparenciaStateChanged(evt);
@@ -462,6 +461,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         BarraHerramientas.add(ButtonStop);
 
         ComboBoxListaReproduccion.setToolTipText("Lista de reproducción");
+        ComboBoxListaReproduccion.setMaximumSize(new java.awt.Dimension(100, 32767));
         BarraHerramientas.add(ComboBoxListaReproduccion);
 
         ButtonRecord.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/voice-recorder.png"))); // NOI18N
@@ -475,9 +475,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         BarraHerramientas.add(ButtonRecord);
-
-        LabelGrabar.setText("00:00");
-        BarraHerramientas.add(LabelGrabar);
         BarraHerramientas.add(jSeparator7);
 
         ToggleButtonWebcam.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/webcam.png"))); // NOI18N
@@ -648,14 +645,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jPanel9.add(ButtonTritanopia);
 
-        jButton15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/enhance-effect.png"))); // NOI18N
-        jButton15.setToolTipText("");
-        jButton15.addActionListener(new java.awt.event.ActionListener() {
+        ButtonInfrarojos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/enhance-effect.png"))); // NOI18N
+        ButtonInfrarojos.setToolTipText("");
+        ButtonInfrarojos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton15ActionPerformed(evt);
+                ButtonInfrarojosActionPerformed(evt);
             }
         });
-        jPanel9.add(jButton15);
+        jPanel9.add(ButtonInfrarojos);
 
         BarraImagen.add(jPanel9);
 
@@ -764,14 +761,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel3.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         LabelBarradeEstado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        LabelBarradeEstado.setText("Barra de estado");
+        LabelBarradeEstado.setText("Puntos");
         LabelBarradeEstado.setToolTipText("Barra de estado");
         jPanel3.add(LabelBarradeEstado);
 
         BarraEstado.add(jPanel3);
 
         jPanel4.setPreferredSize(new java.awt.Dimension(200, 25));
-        jPanel4.setSize(new java.awt.Dimension(150, 100));
         jPanel4.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         LabelCoordenadas.setText("Coordenadas");
@@ -844,9 +840,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(ButtonEDELANTE);
-
-        ComboBoxFiguras.setMaximumRowCount(100);
-        jToolBar1.add(ComboBoxFiguras);
 
         jPanel1.add(jToolBar1, java.awt.BorderLayout.NORTH);
 
@@ -1001,7 +994,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             try{
                 File f = dlg.getSelectedFile();
                 
-                if(f.getName().endsWith(".avi") || f.getName().endsWith(".mp4")){
+                if(f.getName().endsWith(".wav") || f.getName().endsWith(".au")){
                     File audio = new File(dlg.getSelectedFile().getAbsolutePath()) {
                         @Override
                         public String toString() {
@@ -1010,8 +1003,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     };
                     this.ComboBoxListaReproduccion.addItem(audio);
                 }else{
-                    if(f.getName().endsWith(".wav") || f.getName().endsWith(".au")){
-                    
+                    if(f.getName().endsWith(".avi") || f.getName().endsWith(".mp4")){
+                        VentanaInternaVideo viv = new VentanaInternaVideo(dlg.getSelectedFile());
+                        
+                        this.Desktop.add(viv);
+                        viv.setTitle(dlg.getSelectedFile().getName());
+                        viv.setVisible(true);
+                        viv.setLocation(50, 50);
+                        viv.setClosable(true);
                     }else{
                         BufferedImage img = ImageIO.read(f);
                         VentanaInternaImagen vi = new VentanaInternaImagen(this);
@@ -1028,6 +1027,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_MenuAbrirActionPerformed
 
+    private static String getFileExtension(File file) {
+        String fileName = file.getName();
+        if(fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
+        return fileName.substring(fileName.lastIndexOf(".")+1);
+        else return "";
+    }
+    
     private void MenuGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuGuardarActionPerformed
         VentanaInternaImagen vi = (VentanaInternaImagen) Desktop.getSelectedFrame();
         
@@ -1043,16 +1049,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             dlg.setFileFilter(filterpng);
             dlg.setFileFilter(filtergif);
             
-            dlg.addChoosableFileFilter(filter);
-            
             int resp = dlg.showSaveDialog(this);
             if (resp == JFileChooser.APPROVE_OPTION) {
                 try {
                     BufferedImage img = vi.getLienzo2DImagen().getImg(true);
                     if (img != null) {
-                        File f = dlg.getSelectedFile();
-                        ImageIO.write(img, "jpg", f);
-                        vi.setTitle(f.getName());
+                        File file = dlg.getSelectedFile();
+                        String extension = getFileExtension(file);
+                        
+                        if ("".equals(extension) || !("jpg".equals(extension) || "png".equals(extension) || "gif".equals(extension))){
+                            extension = "jpg";
+                            String nombre = file.getName().concat("."+extension);
+                            File newfile = new File(nombre);
+                            ImageIO.write(img, extension, newfile);
+                            vi.setTitle(newfile.getName()  + "[Guardado]");
+                        }else{
+                            ImageIO.write(img, extension, file);
+                            vi.setTitle(file.getName()  + "[Guardado]");
+                        }  
                     }
                 }catch (Exception ex) {
                     System.err.println("Error al guardar la imagen");
@@ -1118,7 +1132,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             try{
                 File f = dlg.getSelectedFile();
                 
-                if(f.getName().endsWith(".avi") || f.getName().endsWith(".mp4")){
+                if(f.getName().endsWith(".wav") || f.getName().endsWith(".au")){
                     File audio = new File(dlg.getSelectedFile().getAbsolutePath()) {
                         @Override
                         public String toString() {
@@ -1127,8 +1141,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     };
                     this.ComboBoxListaReproduccion.addItem(audio);
                 }else{
-                    if(f.getName().endsWith(".wav") || f.getName().endsWith(".au")){
-                    
+                    if(f.getName().endsWith(".avi") || f.getName().endsWith(".mp4")){
+                        VentanaInternaVideo viv = new VentanaInternaVideo(dlg.getSelectedFile());
+                        
+                        this.Desktop.add(viv);
+                        viv.setTitle(dlg.getSelectedFile().getName());
+                        viv.setVisible(true);
+                        viv.setLocation(50, 50);
+                        viv.setClosable(true);
                     }else{
                         BufferedImage img = ImageIO.read(f);
                         VentanaInternaImagen vi = new VentanaInternaImagen(this);
@@ -1160,16 +1180,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             dlg.setFileFilter(filterpng);
             dlg.setFileFilter(filtergif);
             
-            dlg.addChoosableFileFilter(filter);
-            
             int resp = dlg.showSaveDialog(this);
             if (resp == JFileChooser.APPROVE_OPTION) {
                 try {
                     BufferedImage img = vi.getLienzo2DImagen().getImg(true);
                     if (img != null) {
-                        File f = dlg.getSelectedFile();
-                        ImageIO.write(img, "jpg", f);
-                        vi.setTitle(f.getName());
+                        File file = dlg.getSelectedFile();
+                        String extension = getFileExtension(file);
+                        
+                        if ("".equals(extension) || !("jpg".equals(extension) || "png".equals(extension) || "gif".equals(extension))){
+                            extension = "jpg";
+                            String nombre = file.getName().concat("."+extension);
+                            File newfile = new File(nombre);
+                            ImageIO.write(img, extension, newfile);
+                            vi.setTitle(newfile.getName()  + "[Guardado]");
+                        }else{
+                            ImageIO.write(img, extension, file);
+                            vi.setTitle(file.getName()  + "[Guardado]");
+                        }  
                     }
                 }catch (Exception ex) {
                     System.err.println("Error al guardar la imagen");
@@ -1402,19 +1430,41 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_SliderTransparenciaStateChanged
 
     private void ButtonEFondoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEFondoActionPerformed
-        // TODO add your handling code here:
+        VentanaInternaImagen vi = this.getSelectedInternalWindow();
+        
+        if(vi != null){
+            vi.getLienzo2DImagen().EnviarFondo();
+            vi.getLienzo2DImagen().repaint();
+        }
     }//GEN-LAST:event_ButtonEFondoActionPerformed
 
     private void ButtonEFrenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEFrenteActionPerformed
-        // TODO add your handling code here:
+        VentanaInternaImagen vi = this.getSelectedInternalWindow();
+        
+        if(vi != null){
+            vi.getLienzo2DImagen().EnviarFrente();
+            vi.getLienzo2DImagen().repaint();
+        }
     }//GEN-LAST:event_ButtonEFrenteActionPerformed
 
     private void ButtonEAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEAtrasActionPerformed
-        // TODO add your handling code here:
+        VentanaInternaImagen vi = this.getSelectedInternalWindow();
+        
+        if(vi != null){
+            sm.ftm.graficos.Shape s = vi.getLienzo2DImagen().getShape();
+            vi.getLienzo2DImagen().EnviarAtras(vi.getLienzo2DImagen().getvShape().indexOf(s));
+            vi.getLienzo2DImagen().repaint();
+        }
     }//GEN-LAST:event_ButtonEAtrasActionPerformed
 
     private void ButtonEDELANTEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEDELANTEActionPerformed
-        // TODO add your handling code here:
+        VentanaInternaImagen vi = this.getSelectedInternalWindow();
+        
+        if(vi != null){
+            sm.ftm.graficos.Shape s = vi.getLienzo2DImagen().getShape();
+            vi.getLienzo2DImagen().EnviarAdelante(vi.getLienzo2DImagen().getvShape().indexOf(s));
+            vi.getLienzo2DImagen().repaint();
+        }
     }//GEN-LAST:event_ButtonEDELANTEActionPerformed
 
     private void SliderBrilloFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_SliderBrilloFocusGained
@@ -1654,13 +1704,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      */
     private LookupTable parabola(){
         double K = 255.0;
-        
+         
         byte[] lt = new byte[256];
         
-        
+        double a = 4.0/255.0;
         
         for(int i = 0; i <= 255; i++){
-            lt[i] = (byte)(K * Math.pow(i,2));
+            lt[i] = (byte)(a*Math.pow(i, 2) - 4*i + 255);
         }
         
         ByteLookupTable salida = new ByteLookupTable(0, lt);
@@ -1686,9 +1736,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ButtonParabolaActionPerformed
 
-    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton15ActionPerformed
+    private void ButtonInfrarojosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonInfrarojosActionPerformed
+        VentanaInternaImagen vi = this.getSelectedInternalWindow();
+        
+        if(vi != null){
+            BufferedImage imgSource = vi.getLienzo2DImagen().getImg();
+            
+            if(imgSource != null){
+                RandomOp op = new RandomOp();
+                op.filter(imgSource, imgSource);
+                vi.getLienzo2DImagen().setImg(imgSource);
+                vi.getLienzo2DImagen().repaint();
+            }
+        }
+    }//GEN-LAST:event_ButtonInfrarojosActionPerformed
 
     private BufferedImage getBanda(BufferedImage srcImagen, int iBanda){
         //Creamos el modelo de color de la nueva imagen basado en un espcio de color GRAY
@@ -1952,6 +2013,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void ButtonRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonRecordActionPerformed
         JFileChooser dlg = new JFileChooser();
+        
+        FileFilter filterjpg = new FileNameExtensionFilter("*.wav", "wav");
+        
         int resp = dlg.showSaveDialog(this);
         if (resp == JFileChooser.APPROVE_OPTION) {
             try {
@@ -1971,24 +2035,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_ButtonRecordActionPerformed
-
-    
-    /**
-     * Clase manejadora de los botonos de play, stop
-     * @author thejoker
-     */
-    /*class ManejadorAudio implements LineListener {
-        @Override
-        public void update(LineEvent event) {
-            if (event.getType() == LineEvent.Type.START) {
-            }
-            if (event.getType() == LineEvent.Type.STOP) {
-            }
-            if (event.getType() == LineEvent.Type.CLOSE) {
-            }
-        }
-    }*/
-    
+ 
     private void ToggleButtonWebcamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleButtonWebcamActionPerformed
         VentanaInternaCamara vi = VentanaInternaCamara.getInstance();
          
@@ -2030,6 +2077,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton ButtonEFrente;
     private javax.swing.JButton ButtonGuardar;
     private javax.swing.JButton ButtonIluminar;
+    private javax.swing.JButton ButtonInfrarojos;
     private javax.swing.JButton ButtonNegativo;
     private javax.swing.JButton ButtonNuevo;
     private javax.swing.JButton ButtonObscurecer;
@@ -2048,7 +2096,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem CheckBoxMenuItemBarraEstado;
     private javax.swing.JCheckBoxMenuItem CheckBoxMenuItemBarraHerramientas;
     private javax.swing.JCheckBoxMenuItem CheckBoxMenuItemImagen;
-    private javax.swing.JComboBox<sm.ftm.graficos.Shape> ComboBoxFiguras;
     private javax.swing.JComboBox<String> ComboBoxFiltro;
     private javax.swing.JComboBox<File> ComboBoxListaReproduccion;
     private javax.swing.JComboBox<String> ComboBoxPaleta;
@@ -2057,7 +2104,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel LabelBarradeEstado;
     protected javax.swing.JLabel LabelColor;
     protected javax.swing.JLabel LabelCoordenadas;
-    private javax.swing.JLabel LabelGrabar;
     private javax.swing.JMenuBar Menu;
     private javax.swing.JMenuItem MenuAbrir;
     private javax.swing.JMenuItem MenuAcercade;
@@ -2087,7 +2133,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JToggleButton ToggleButtonWebcam;
     private javax.swing.ButtonGroup buttonGroupGraficos;
     private javax.swing.ButtonGroup buttonGroupRelleno;
-    private javax.swing.JButton jButton15;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;

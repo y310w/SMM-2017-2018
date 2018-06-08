@@ -28,4 +28,12 @@ public class TrazoLibre extends Shape{
         
         ((GeneralPath) this.formainterna).moveTo(p.getX(), p.getY());
     }
+   
+    /**
+     * Fin del trazo libre
+     * @param p
+     */
+    public void Fin(Point2D p){
+        ((GeneralPath) this.formainterna).moveTo(p.getX(), p.getY());
+    }
 }

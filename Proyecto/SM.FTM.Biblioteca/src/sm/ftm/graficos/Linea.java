@@ -48,7 +48,7 @@ public class Linea extends Shape{
      * Establece el punto final de la linea
      * @param p2
      */
-    public void setPF(Point2D p2){
+    public void setPf(Point2D p2){
        ((Line2D) formainterna).setLine(((Line2D) formainterna).getP1(), p2);
     }
     

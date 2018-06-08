@@ -12,6 +12,7 @@ import sm.ftm.graficos.*;
 import java.util.ArrayList;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
+import java.util.Collections;
 
 /**
  * Clase para pintar las figuras con sus atributos
@@ -28,6 +29,7 @@ public class Lienzo2D extends javax.swing.JPanel {
         
         this.s = new sm.ftm.graficos.Shape();
         this.mover = false;
+        this.crear = false;
     }
 
     /**
@@ -42,6 +44,13 @@ public class Lienzo2D extends javax.swing.JPanel {
      */
     public void setShape(sm.ftm.graficos.Shape s) {
         this.s = s;
+    }
+    
+    /**
+     * @return the vShape
+     */
+    public List<sm.ftm.graficos.Shape> getvShape() {
+        return vShape;
     }
     
     /**
@@ -63,25 +72,31 @@ public class Lienzo2D extends javax.swing.JPanel {
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
         
-        for (sm.ftm.graficos.Shape shape : vShape) {
+        for (sm.ftm.graficos.Shape shape : getvShape()) {
             shape.draw(g2d);
         }
     }
      
     /**
      * Envia la figura a la primera posición del vector
-     * @param index
+     * 
      */
-    public void EnviarFondo(int index){
-        
+    public void EnviarFondo(){
+        if(getvShape().indexOf(this.s) != 0){
+            getvShape().add(0, this.s);
+            getvShape().remove(getvShape().size() - 1);
+        }
     }
     
     /**
      * Envia la figura a la última posición del vector
-     * @param index
+     * 
      */
-    public void EnviarFrente(int index){
-    
+    public void EnviarFrente(){
+        if(getvShape().indexOf(this.s) != getvShape().size() - 1){
+            getvShape().add(this.s);
+            getvShape().remove(0);
+        }
     }
     
     /**
@@ -89,7 +104,8 @@ public class Lienzo2D extends javax.swing.JPanel {
      * @param index
      */
     public void EnviarAtras(int index){
-    
+        if(index > 0)
+            Collections.swap(getvShape(), index, index-1);
     }
     
     /**
@@ -97,7 +113,8 @@ public class Lienzo2D extends javax.swing.JPanel {
      * @param index
      */
     public void EnviarAdelante(int index){
-    
+        if(index < getvShape().size()-1)
+            Collections.swap(getvShape(), index, index+1);
     }
     
     /**
@@ -106,7 +123,7 @@ public class Lienzo2D extends javax.swing.JPanel {
      * @return
      */
     public Shape getSelectedShape(Point2D p){
-        for(sm.ftm.graficos.Shape sv:vShape){
+        for(sm.ftm.graficos.Shape sv:getvShape()){
             if(sv.contains(p))
                 return sv;
               
@@ -122,10 +139,9 @@ public class Lienzo2D extends javax.swing.JPanel {
     
     /**
      * Función para crear la figura
-     * @param num
      * @param p
      */
-    public void CreateShape(int num, Point2D p){  
+    public void CreateShape(Point2D p){  
         sm.ftm.graficos.Shape s = null;
         
         switch(this.getShape().getForma()){
@@ -146,15 +162,21 @@ public class Lienzo2D extends javax.swing.JPanel {
             break;
             
             case CURVE:
-                if (this.getShape() != null && this.getShape() instanceof Curva){
-                    ((Curva) this.getShape()).setPCtrl(p);
-                    this.UpdateShape(p);
-                }else
+                if(!(this.getShape() instanceof Curva))
                     s = new Curva(this.getShape(),p);
+                else{
+                    s = this.getShape();
+                    
+                }
             break;
             
-            default:
-                s = null;
+            case AREA:
+                
+            break;
+            
+            case FREE:
+                if(!(this.getShape() instanceof TrazoLibre))
+                    s = new TrazoLibre(this.getShape(),p);
             break;
         }
         
@@ -169,7 +191,7 @@ public class Lienzo2D extends javax.swing.JPanel {
     public void UpdateShape(Point2D p){
         switch(this.getShape().getForma()){
             case LINE:
-                ((Linea) this.getShape()).setPF(p);
+                ((Linea) this.getShape()).setPf(p);
             break;
             
             case RECTANGLE:
@@ -181,10 +203,19 @@ public class Lienzo2D extends javax.swing.JPanel {
             break;
             
             case CURVE:
-                if(((Curva) this.getShape()).getPCtrl() == null)
-                    CreateShape(1,p);
-                else
+                if(this.crear){
+                    ((Curva) this.getShape()).setPCtrl(p);
+                }else
                     ((Curva) this.getShape()).setPf(p);
+            break;
+            
+            case AREA:
+                
+            break;
+            
+            case FREE:
+                ((TrazoLibre) this.getShape()).Fin(p);
+            break;
         }
     }
     
@@ -207,6 +238,18 @@ public class Lienzo2D extends javax.swing.JPanel {
         
         if(this.getShape() instanceof Elipse){
             ((Elipse)getShape()).setLocation(p);
+        }
+        
+        if(this.getShape() instanceof Curva){
+           ((Curva) this.getShape()).setLocation(p);
+        }
+        
+        if(this.getShape() instanceof Area){
+            //((Area) this.getShape()).setLocation(p);
+        }
+        
+        if(this.getShape() instanceof TrazoLibre){
+            //((TrazoLibre) this.getShape()).setLocation(p);
         }
     }
     
@@ -252,10 +295,8 @@ public class Lienzo2D extends javax.swing.JPanel {
         }else{
             pAux = evt.getPoint();
             int num = evt.getClickCount();
-            this.CreateShape(num,pAux);
-            if( this.s != null)
-                vShape.add(this.s);
-            
+            this.CreateShape(pAux);
+            getvShape().add(this.s);
         }
     }//GEN-LAST:event_formMousePressed
 
@@ -270,7 +311,7 @@ public class Lienzo2D extends javax.swing.JPanel {
     }//GEN-LAST:event_formMouseDragged
 
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
-        this.formMouseDragged(evt);
+        
     }//GEN-LAST:event_formMouseReleased
 
 
@@ -296,4 +337,9 @@ public class Lienzo2D extends javax.swing.JPanel {
      * Mover la figuras
      */
     private boolean mover;
+    
+     /**
+     * Crear la figura
+     */
+    public boolean crear;
 }
