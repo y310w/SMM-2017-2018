@@ -166,7 +166,7 @@ public class Lienzo2D extends javax.swing.JPanel {
                     s = new Curva(this.getShape(),p);
                 else{
                     s = this.getShape();
-                    
+                    this.crear = true;
                 }
             break;
             
