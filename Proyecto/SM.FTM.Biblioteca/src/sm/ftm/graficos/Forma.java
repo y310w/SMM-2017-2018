@@ -6,7 +6,7 @@
 package sm.ftm.graficos;
 
 /**
- *
+ * Enumerador de las todas las figuras
  * @author thejoker
  */
 public enum Forma {

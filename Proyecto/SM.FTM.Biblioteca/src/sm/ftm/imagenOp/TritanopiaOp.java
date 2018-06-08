@@ -11,13 +11,20 @@ import sm.image.BufferedImageOpAdapter;
  */
 
 /**
- *
+ * Clase que define una operación sobre la imagen, en este 
+ * caso el efecto de Tritanopia (Tipo de daltonismo)
  * @author thejoker
  */
 public class TritanopiaOp extends BufferedImageOpAdapter{
-   public TritanopiaOp(){
+
+    /**
+     * Creates new form Tritanopia
+     */
+    public TritanopiaOp(){
+    
     }
     
+    @Override
     public BufferedImage filter(BufferedImage src, BufferedImage dest){
         if(src == null){
             throw new NullPointerException("src image ins null");

@@ -10,13 +10,13 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 /**
- *
+ * Clase rectangulo que hereda de Shape
  * @author thejoker
  */
 public class Rectangulo extends Shape{
 
     /**
-     *
+     * Creates new form Rectangulo
      * @param s
      */
     public Rectangulo(sm.ftm.graficos.Shape s){
@@ -25,7 +25,7 @@ public class Rectangulo extends Shape{
     }
     
     /**
-     *
+     * Creates new form Rectangulo
      * @param s
      * @param pi
      * @param pf
@@ -40,7 +40,7 @@ public class Rectangulo extends Shape{
     }
     
     /**
-     *
+     * Establece el punto final del rectangulo
      * @param pf
      */
     public void setPf(Point2D pf){
@@ -48,13 +48,20 @@ public class Rectangulo extends Shape{
     }
     
     /**
-     *
+     * Establece la localización del rectangulo
      * @param p
      */
     public void setLocation(Point2D p){
         ((Rectangle2D) formainterna).setFrame(p, new Dimension((int) ((Rectangle2D) formainterna).getWidth(), (int) ((Rectangle2D) formainterna).getHeight()));
     }
     
+    /**
+     * Punto inicial del rectangulo
+     */
     private Point2D pi;
+    
+    /**
+     * Punto final del rectangulo
+     */
     private Point2D pf;
 }

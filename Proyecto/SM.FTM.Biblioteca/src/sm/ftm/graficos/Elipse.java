@@ -10,15 +10,26 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Ellipse2D;
 
 /**
- *
+ * Clase elipse que hereda de Shape
  * @author thejoker
  */
 public class Elipse extends Shape{
+
+    /**
+     * Creates new form Elipse
+     * @param s
+     */
     public Elipse(sm.ftm.graficos.Shape s){
         super(s);
         this.formainterna = new Ellipse2D.Double(0, 0, 0, 0);
     }
     
+    /**
+     * Creates new form Elipse
+     * @param s
+     * @param pi
+     * @param pf
+     */
     public Elipse(Shape s, Point2D pi, Point2D pf){
         super(s);
         this.pi = pi;
@@ -28,14 +39,29 @@ public class Elipse extends Shape{
         this.formainterna = new Ellipse2D.Double(pi.getX(), pi.getY(), ancho, alto);
     }
     
+    /**
+     * Establece el punto final a la elipse
+     * @param pf
+     */
     public void setPf(Point2D pf){
         ((Ellipse2D) formainterna).setFrameFromDiagonal(pi, pf);
     }
     
+    /**
+     * Establece la localizacion a la elipse
+     * @param p
+     */
     public void setLocation(Point2D p){
         ((Ellipse2D) formainterna).setFrame(p, new Dimension((int) ((Ellipse2D) formainterna).getWidth(), (int) ((Ellipse2D) formainterna).getHeight()));
     }
     
+    /**
+     * Punto inicial del rectangulo
+     */
     private Point2D pi;
+    
+    /**
+     * Punto final del rectangulo
+     */
     private Point2D pf;
 }

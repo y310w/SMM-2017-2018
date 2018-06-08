@@ -1,16 +1,18 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package sm.ftm.graficos;
 
+import java.awt.AlphaComposite;
 import sm.ftm.graficos.Forma;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Stroke;
 import java.awt.Rectangle;
 import java.awt.Composite;
+import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.awt.RenderingHints;
@@ -19,35 +21,44 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 
 /**
- *
+ * Clase que define una figura, tiene todo los atributos a cada figura
  * @author thejoker
  */
 
 public class Shape implements java.awt.Shape { 
     
     /**
-     *
+     * Creates new form Shape
      */
     public Shape(){
-        this.colortrazo = Color.BLACK;
-        this.colorerelleno = Color.WHITE;
         this.forma = Forma.POINT;
+        this.colortrazo = Color.BLACK;
+        this.colorrellenosimple = Color.WHITE;
         this.trazo = new BasicStroke(1.0F);
-        this.relleno = false;
-        this.mover = false;
+        this.tipotrazo = "Continua";
+        this.rellenosimple = false;
+        this.rellenogradienteH = false;
+        this.rellenogradienteV = false;
+        this.alisado = false;
+        this.comp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f);
+        this.compvalue = 100;                
     }
     
     /**
-     *
+     * Creates new form Shape
      * @param p
      */
     public Shape(Shape p){
-        this.colortrazo = p.colortrazo;
-        this.colorerelleno = p.colorerelleno;
-        this.forma = p.forma;
-        this.trazo = p.trazo;
-        this.relleno = p.relleno;
-        this.mover = p.mover;
+        this.forma = p.getForma();
+        this.colortrazo = p.getColorTrazo();
+        this.colorrellenosimple = p.getColorerellenoSimple();
+        this.trazo = p.getTrazo();
+        this.tipotrazo = p.getTipotrazo();
+        this.rellenosimple = p.isRellenoSimple();
+        this.rellenogradienteH = p.isRellenoGradienteH();
+        this.rellenogradienteV = p.isRellenoGradienteV();
+        this.alisado = p.isAlisado();
+        this.comp = p.getComp();
     }
     
     /**
@@ -79,26 +90,34 @@ public class Shape implements java.awt.Shape {
     }
 
     /**
-     * @return the colorerelleno
+     * @return the colorerellenosimple
      */
-    public Color getColorerelleno() {
-        return colorerelleno;
+    public Color getColorerellenoSimple() {
+        return colorrellenosimple;
     }
 
     /**
-     * @param colorerelleno the colorerelleno to set
+     * @param colorerellenosimple the colorerelleno to set
      */
-    public void setColorerelleno(Color colorerelleno) {
-        this.colorerelleno = colorerelleno;
+    public void setColorerellenoSimple(Color colorerellenosimple) {
+        this.colorrellenosimple = colorerellenosimple;
     }
     
     /**
      * @return the trazo
      */
-    public BasicStroke getTrazo() {
+    public Stroke getTrazo() {
         return (BasicStroke) trazo;
     }
 
+    /**
+     * Devuelve el valor en float del ancho del trazo
+     * @return
+     */
+    public Float getStrokeWidth(){
+        return ((BasicStroke) this.trazo).getLineWidth();
+    }
+    
     /**
      * @param trazo the stroke to set
      */
@@ -107,31 +126,73 @@ public class Shape implements java.awt.Shape {
     }
 
     /**
+     * @return the tipotrazo
+     */
+    public String getTipotrazo() {
+        return tipotrazo;
+    }
+
+    /**
+     * @param tipotrazo the tipotrazo to set
+     */
+    public void setTipotrazo(String tipotrazo) {
+        this.tipotrazo = tipotrazo;
+    }
+    
+    /**
      * @return the relleno
      */
-    public boolean isRelleno() {
-        return relleno;
+    public boolean isRellenoSimple() {
+        return rellenosimple;
     }
 
     /**
      * @param relleno the relleno to set
      */
-    public void setRelleno(boolean relleno) {
-        this.relleno = relleno;
+    public void setRellenoSimple(boolean relleno) {
+        this.rellenosimple = relleno;
+    }
+
+    /*
+     * @return the rellenogradienteH
+     */
+    public boolean isRellenoGradienteH() {
+        return rellenogradienteH;
     }
 
     /**
-     * @return the render
+     * @param rellenogradiente the relleno to set
      */
-    public RenderingHints getRender() {
-        return render;
+    public void setRellenoGradienteH(boolean rellenogradienteH) {
+        this.rellenogradienteH = rellenogradienteH;
+    }
+    
+    /*
+     * @return the rellenogradienteV
+     */
+    public boolean isRellenoGradienteV() {
+        return rellenogradienteV;
     }
 
     /**
-     * @param render the render to set
+     * @param rellenogradienteV the relleno to set
      */
-    public void setRender(RenderingHints render) {
-        this.render = render;
+    public void setRellenoGradienteV(boolean rellenogradienteV) {
+        this.rellenogradienteV = rellenogradienteV;
+    }
+    
+    /**
+     * @return the alisado
+     */
+    public boolean isAlisado() {
+        return alisado;
+    }
+
+    /**
+     * @param alisado the alisado to set
+     */
+    public void setAlisado(boolean alisado) {
+        this.alisado = alisado;
     }
 
     /**
@@ -140,26 +201,27 @@ public class Shape implements java.awt.Shape {
     public Composite getComp() {
         return comp;
     }
-
+    
     /**
-     * @param comp the comp to set
+     * @param value the comp to set
      */
-    public void setComp(Composite comp) {
-        this.comp = comp;
+    public void setComp(float value) {
+        this.compvalue = value;
+        this.comp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, value);
+    }
+  
+    /**
+     * @return the compvalue
+     */
+    public float getCompvalue() {
+        return compvalue;
     }
 
     /**
-     * @return the mover
+     * @param compvalue the compvalue to set
      */
-    public boolean isMover() {
-        return mover;
-    }
-
-    /**
-     * @param mover the mover to set
-     */
-    public void setMover(boolean mover) {
-        this.mover = mover;
+    public void setCompvalue(float compvalue) {
+        this.compvalue = compvalue;
     }
     
     @Override
@@ -213,22 +275,99 @@ public class Shape implements java.awt.Shape {
     }
     
     /**
-     *
+     * Dibuja la figura atendiendo a su características
      * @param g
      */
     public void draw(Graphics2D g){
         g.setStroke(this.getTrazo());
+        
+        if(this.isRellenoSimple() || this.isRellenoGradienteH() || this.isRellenoGradienteV()){
+            if (this.isRellenoSimple())
+                g.setPaint(this.getColorerellenoSimple());
+            else{
+                if(this.isRellenoGradienteH()){
+                    GradientPaint gradiente = new GradientPaint(this.getBounds().x, this.getBounds().y, this.getColorTrazo(), this.getBounds().x + this.getBounds().width, this.getBounds().y, this.getColorerellenoSimple());
+                    g.setPaint(gradiente);
+                }else{
+                    GradientPaint gradiente = new GradientPaint(this.getBounds().x, this.getBounds().y, this.getColorTrazo(), this.getBounds().x, this.getBounds().y + this.getBounds().height, this.getColorerellenoSimple());
+                    g.setPaint(gradiente);
+                }
+            }
+            g.setComposite(this.getComp());
+            g.fill(this);
+        }else{
+            g.setComposite(this.getComp());
+        }
+        
+        if(this.isAlisado())
+            g.setRenderingHints(this.render);
+        
         g.setPaint(this.getColorTrazo());
         g.draw(this);
     }
     
+    /**
+     * figura actual creada desde Lienzo2D
+     */
     protected java.awt.Shape formainterna;
+    
+    /**
+     * Forma de la figura
+     */
     private Forma forma;
+    
+    /**
+     * Color del trazo
+     */
     private Color colortrazo;
-    private Color colorerelleno;
+    
+    /**
+     * Color del relleno
+     */
+    private Color colorrellenosimple;
+    
+    /**
+     * Tipo del trazo
+     */
     private Stroke trazo;
-    private boolean relleno = false;
+    
+    /**
+     * Tipo del trazo utilizado para actualizar el parent de VentanaInternaImagen
+     */
+    private String tipotrazo;
+    
+    /**
+     * Establecer el relleno simple
+     */
+    private boolean rellenosimple = false;
+    
+    /**
+     * Establecer el relleno gradiente horizontal
+     */
+    private boolean rellenogradienteH = false;
+    
+    /**
+     * Establecer el relleno gradicente vertical
+     */
+    private boolean rellenogradienteV = false;
+    
+    /**
+     * Vector de formas
+     */
+    private boolean alisado = false;
+    
+    /**
+     * Atributo del alisado
+     */
     private RenderingHints render = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+    
+    /**
+     * Atributo de la transparencia
+     */
     private Composite comp;
-    private boolean mover = false;
+    
+    /**
+     * Valor de la transparencia para el Slider de transparencia
+     */
+    private float compvalue;
 }

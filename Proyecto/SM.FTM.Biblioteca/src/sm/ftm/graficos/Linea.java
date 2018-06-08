@@ -9,13 +9,13 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 
 /**
- *
+ * Clase linea que hereda de Shape
  * @author thejoker
  */
 public class Linea extends Shape{
 
     /**
-     *
+     * Creates new form Linea
      * @param p
      */
     public Linea(sm.ftm.graficos.Shape p){
@@ -24,7 +24,7 @@ public class Linea extends Shape{
     }
     
     /**
-     *
+     * Creates new form Punto
      * @param p
      * @param point
      */
@@ -34,7 +34,7 @@ public class Linea extends Shape{
     }
     
     /**
-     *
+     * Creates new form Linea
      * @param p
      * @param p1
      * @param p2
@@ -45,7 +45,7 @@ public class Linea extends Shape{
     }
     
     /**
-     *
+     * Establece el punto final de la linea
      * @param p2
      */
     public void setPF(Point2D p2){
@@ -53,7 +53,7 @@ public class Linea extends Shape{
     }
     
     /**
-     *
+     * comprueba si el @param p esta cerca de la linea
      * @param p
      * @return
      */
@@ -76,7 +76,7 @@ public class Linea extends Shape{
     }
     
     /**
-     *
+     * Establece la localizacion a la linea
      * @param p
      */
     public void setLocation(Point2D p){

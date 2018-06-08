@@ -11,13 +11,19 @@ import sm.image.BufferedImageOpAdapter;
  */
 
 /**
- *
+ * Clase que define una operación sobre la imagen, en este 
+ * caso el efecto de Protanopia (Tipo de daltonismo)
  * @author thejoker
  */
 public class ProtanopiaOp extends BufferedImageOpAdapter{
+
+    /**
+     * Creates new form Protanopia
+     */
     public ProtanopiaOp(){
     }
     
+    @Override
     public BufferedImage filter(BufferedImage src, BufferedImage dest){
         if(src == null){
             throw new NullPointerException("src image ins null");

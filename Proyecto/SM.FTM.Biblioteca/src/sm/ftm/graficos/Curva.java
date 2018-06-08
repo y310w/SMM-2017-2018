@@ -9,13 +9,13 @@ import java.awt.geom.Point2D;
 import java.awt.geom.QuadCurve2D;
 
 /**
- *
+ * Clase curva que hereda de Shape
  * @author thejoker
  */
 public class Curva extends Shape{
 
     /**
-     *
+     * Creates new form Curva
      * @param s
      */
     public Curva(Shape s) {
@@ -26,7 +26,7 @@ public class Curva extends Shape{
     }
     
     /**
-     *
+     * Creates new form Curva
      * @param s
      * @param p
      */
@@ -36,7 +36,7 @@ public class Curva extends Shape{
     }
     
     /**
-     *
+     * Establece el punto de control de la curva
      * @param p
      */
     public void setPCtrl(Point2D p){
@@ -44,7 +44,7 @@ public class Curva extends Shape{
     }
     
     /**
-     *
+     * Devuelve el punto de control de la curva
      * @return
      */
     public Point2D getPCtrl(){
@@ -52,7 +52,7 @@ public class Curva extends Shape{
     }
     
     /**
-     *
+     * Establece el punto final de la curva
      * @param p
      */
     public void setPf(Point2D p){
@@ -66,13 +66,20 @@ public class Curva extends Shape{
     }
     
     /**
-     *
+     * Devuelve el punto final de la curva
      * @return
      */
     public Point2D getPf(){
         return this.puntoF;
     }
     
+    /**
+     * Punto inicial del rectangulo
+     */
     private Point2D puntoCtrl;
+    
+    /**
+     * Punto final del rectangulo
+     */
     private Point2D puntoF;
 }

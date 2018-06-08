@@ -12,11 +12,16 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 /**
- *
+ * Clase trazo libre que hereda de Shape
  * @author thejoker
  */
 public class TrazoLibre extends Shape{
 
+    /**
+     * Creates new form TrazoLibre
+     * @param s
+     * @param p
+     */
     public TrazoLibre(Shape s, Point2D p) {
         super(s);
         this.formainterna = new GeneralPath(GeneralPath.WIND_EVEN_ODD);

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package proyecto.paint.VentanaInterna;
+package proyecto.paint;
 
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;
@@ -26,7 +26,7 @@ public class VentanaInternaCamara extends javax.swing.JInternalFrame {
         
         Dimension resoluciones[] = camara.getViewSizes();
         Dimension maxRes = resoluciones[resoluciones.length - 1];
-        camara.setViewSize(maxRes);
+        //camara.setViewSize(maxRes);
         if (camara != null) {
             WebcamPanel areaVisual = new WebcamPanel(getCamara());
             if (areaVisual != null) {
@@ -50,11 +50,18 @@ public class VentanaInternaCamara extends javax.swing.JInternalFrame {
         this.camara = camara;
     }
     
+    /**
+     * Devuelve la instancia de la ventana interna camara
+     * @return
+     */
     public static VentanaInternaCamara getInstance() {
         VentanaInternaCamara v = new VentanaInternaCamara();
         return (v.getCamara() != null ? v : null);
     }
      
+    /**
+     * cierra la camara
+     */
     public void close() {
         if (getCamara() != null) {
             try {

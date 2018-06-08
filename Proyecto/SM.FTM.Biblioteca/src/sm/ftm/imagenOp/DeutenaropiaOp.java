@@ -10,13 +10,19 @@ import java.awt.image.WritableRaster;
 import sm.image.BufferedImageOpAdapter;
 
 /**
- *
+ * Clase que define una operación sobre la imagen, en este 
+ * caso el efecto de Deutenaropia (Tipo de daltonismo)
  * @author thejoker
  */
 public class DeutenaropiaOp extends BufferedImageOpAdapter {
+
+    /**
+     * Creates new form Deutenaropia
+     */
     public DeutenaropiaOp(){
     }
     
+    @Override
     public BufferedImage filter(BufferedImage src, BufferedImage dest){
         if(src == null){
             throw new NullPointerException("src image ins null");

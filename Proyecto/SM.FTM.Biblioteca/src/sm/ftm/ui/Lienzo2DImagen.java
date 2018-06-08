@@ -10,7 +10,9 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 /**
- *
+ * Clase que hereda de Lienzo2D y agrega las funciones necesarias 
+ * para asignar una imagen al lienzo y poder pintar en ella.
+ * 
  * @author thejoker
  */
 public class Lienzo2DImagen extends Lienzo2D {
@@ -30,10 +32,19 @@ public class Lienzo2DImagen extends Lienzo2D {
         if(img!=null) g.drawImage(img,0,0,this);
     }
     
+    /**
+     * Función que devuele la imagen
+     * @return the Img
+     */
     public BufferedImage getImg(){
         return img;
     }
     
+    /**
+     * Función que devuelve la imagen con las figuras
+     * @param drawVector
+     * @return the Img
+     */
     public BufferedImage getImg(boolean drawVector) {
         if (drawVector) {
             BufferedImage imgOut =  new BufferedImage(img.getWidth(), img.getHeight(), img.getType());
@@ -45,6 +56,10 @@ public class Lienzo2DImagen extends Lienzo2D {
             return img;
     }
 
+    /**
+     * Función que establece la imagen en el lienzo
+     * @param img
+     */
     public void setImg(BufferedImage img) {
         this.img = img;
         if(img!=null) {
@@ -78,6 +93,14 @@ public class Lienzo2DImagen extends Lienzo2D {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
+    
+    /**
+     *  Imagen cargada
+     */
     private BufferedImage img;
+    
+    /**
+     * booleano asociado a la hora de dibujar las figuras
+     */
     private boolean drawVector;
 }
