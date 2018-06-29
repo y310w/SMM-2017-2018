@@ -81,3 +81,5 @@ Proyecto/javadoc/package-list
 *.js
 
 Proyecto/javadoc/stylesheet\.css
+
+*.pages
