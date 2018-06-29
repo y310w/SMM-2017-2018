@@ -326,7 +326,7 @@ public class Lienzo2D extends javax.swing.JPanel {
     /**
      * Vector de formas
      */
-    private List<sm.ftm.graficos.Shape> vShape = new ArrayList();
+    private final List<sm.ftm.graficos.Shape> vShape = new ArrayList();
     
     /**
      * Figura actual
