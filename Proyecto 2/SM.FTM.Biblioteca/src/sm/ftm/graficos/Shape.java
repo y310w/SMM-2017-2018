@@ -18,6 +18,7 @@ import java.awt.geom.Point2D;
 import java.awt.RenderingHints;
 import java.awt.geom.PathIterator;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
 
 /**
@@ -278,7 +279,13 @@ public class Shape implements java.awt.Shape {
      * Dibuja la figura atendiendo a su características
      * @param g
      */
-    public void draw(Graphics2D g,sm.ftm.graficos.Shape s, boolean mover){ 
+    public void draw(Graphics2D g,sm.ftm.graficos.Shape s, boolean mover){
+        if(this.equals(s)){
+            g.setColor(Color.BLUE);
+            g.setStroke(new BasicStroke(1.0F, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{3}, 0));
+            g.drawRect(this.getBounds().x - 2, this.getBounds().y - 2, this.getBounds().width + 4, this.getBounds().height + 4);
+        }
+        
         g.setStroke(this.getTrazo());
         
         if(this.isRellenoSimple() || this.isRellenoGradienteH() || this.isRellenoGradienteV()){
@@ -305,10 +312,8 @@ public class Shape implements java.awt.Shape {
         g.setPaint(this.getColorTrazo());     
         g.draw(this);
         
-        if(this.equals(s)){
-            g.setColor(Color.BLUE);
-            g.setStroke(new BasicStroke(1.0F, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{3}, 0));
-            g.drawRect(this.getBounds().x - 2, this.getBounds().y - 2, this.getBounds().width + 4, this.getBounds().height + 4);
+        if(this instanceof CustomArea){
+            ((CustomArea) this).paint(g);
         }
     }
     

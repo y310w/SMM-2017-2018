@@ -173,7 +173,7 @@ public class Lienzo2D extends javax.swing.JPanel {
             break;
             
             case AREA:
-                
+                s = new CustomArea(this.getShape(), p);
             break;
             
             case FREE:
@@ -212,10 +212,6 @@ public class Lienzo2D extends javax.swing.JPanel {
                 }
             break;
             
-            case AREA:
-                
-            break;
-            
             case FREE:
                 ((TrazoLibre) this.getShape()).setPf(p);
             break;
@@ -251,8 +247,8 @@ public class Lienzo2D extends javax.swing.JPanel {
             ((TrazoLibre) this.getShape()).setLocation(p);
         }
         
-        if(this.getShape() instanceof Area){
-            ((Area) this.getShape()).setLocation(p);
+        if(this.getShape() instanceof CustomArea){
+            ((CustomArea) this.getShape()).setLocation(p);
         }
     }
     
