@@ -353,7 +353,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/iconos/simbolo-hacker.png"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Area"/>
+            <Property name="toolTipText" type="java.lang.String" value="Deslizador"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
@@ -373,7 +373,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/iconos/overlapping-circles.png"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Area 2"/>
+            <Property name="toolTipText" type="java.lang.String" value="Circulos solapados"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
@@ -755,7 +755,7 @@
                       </Border>
                     </Property>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[160, 100]"/>
+                      <Dimension value="[150, 100]"/>
                     </Property>
                   </Properties>
 
@@ -779,10 +779,7 @@
                     </Component>
                     <Component class="javax.swing.JSlider" name="SliderUmbralizado">
                       <Properties>
-                        <Property name="maximum" type="int" value="255"/>
-                        <Property name="minimum" type="int" value="-255"/>
                         <Property name="toolTipText" type="java.lang.String" value="Umbralizado"/>
-                        <Property name="value" type="int" value="0"/>
                         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                           <Dimension value="[100, 29]"/>
                         </Property>
@@ -1011,6 +1008,28 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ButtonSobelActionPerformed"/>
                       </Events>
                     </Component>
+                    <Component class="javax.swing.JButton" name="ButtonEcualizacion">
+                      <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/iconos/mixer.png"/>
+                        </Property>
+                        <Property name="toolTipText" type="java.lang.String" value="Ecualizaci&#xf3;n"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ButtonEcualizacionActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="ButtonHistograma">
+                      <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/iconos/bar-chart.png"/>
+                        </Property>
+                        <Property name="toolTipText" type="java.lang.String" value="Histograma"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ButtonHistogramaActionPerformed"/>
+                      </Events>
+                    </Component>
                   </SubComponents>
                 </Container>
                 <Container class="javax.swing.JPanel" name="jPanel10">
@@ -1142,7 +1161,7 @@
                       </Border>
                     </Property>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[60, 100]"/>
+                      <Dimension value="[112, 70]"/>
                     </Property>
                   </Properties>
 
@@ -1184,29 +1203,12 @@
                       </Border>
                     </Property>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[165, 124]"/>
+                      <Dimension value="[164, 70]"/>
                     </Property>
                   </Properties>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JSlider" name="SliderMezcla">
-                      <Properties>
-                        <Property name="majorTickSpacing" type="int" value="50"/>
-                        <Property name="maximum" type="int" value="360"/>
-                        <Property name="paintTicks" type="boolean" value="true"/>
-                        <Property name="toolTipText" type="java.lang.String" value="Mezcla"/>
-                        <Property name="value" type="int" value="0"/>
-                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[100, 38]"/>
-                        </Property>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="SliderMezclaStateChanged"/>
-                        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="SliderMezclaFocusGained"/>
-                        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="SliderMezclaFocusLost"/>
-                      </Events>
-                    </Component>
                     <Component class="javax.swing.JButton" name="ButtonMenos">
                       <Properties>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
