@@ -5,8 +5,6 @@
  */
 package sm.ftm.ui;
 
-
-import com.sun.javafx.geom.Line2D;
 import java.util.List;
 import java.awt.Graphics;
 import sm.ftm.graficos.*;
@@ -82,7 +80,7 @@ public class Lienzo2D extends javax.swing.JPanel {
         g2d.clip(this.clip);
                 
         for (sm.ftm.graficos.Shape shape : getvShape()) {
-            shape.draw(g2d,s,this.isMover());
+            shape.draw(g2d,s);
         }
     }
      
@@ -172,12 +170,32 @@ public class Lienzo2D extends javax.swing.JPanel {
                 }
             break;
             
+            case CURVE2:
+                if(!crear){
+                    s = new Curva2(this.getShape(),p);
+                }else{
+                    s = this.getShape();
+                }
+            break;
+            
             case AREA:
                 s = new CustomArea(this.getShape(), p);
             break;
             
             case FREE:
                 s = new TrazoLibre(this.getShape(),p);
+            break;
+            
+            case RECTANGLECURVE:
+                s = new RectanguloCurvo(this.getShape(), p, p);
+            break;
+            
+            case ARC:
+                s = new Arco(this.getShape(), p, p);
+            break;
+            
+            case AREA1:
+                s = new CustomArea1(this.getShape(), p);
             break;
         }
         
@@ -212,8 +230,29 @@ public class Lienzo2D extends javax.swing.JPanel {
                 }
             break;
             
+            case CURVE2:
+                if(pctrl){
+                    ((Curva2) this.getShape()).setPCtrl(p);
+                }else{
+                    if(pctrl1){
+                        ((Curva2) this.getShape()).setPCtrl1(p);
+                    }else{
+                        ((Curva2) this.getShape()).setPf(p);
+                        this.crear = true;
+                    }
+                }
+            break;
+            
             case FREE:
                 ((TrazoLibre) this.getShape()).setPf(p);
+            break;
+            
+            case RECTANGLECURVE:
+                ((RectanguloCurvo) this.getShape()).setPf(p);
+            break;
+            
+            case ARC:
+                ((Arco) this.getShape()).setPf(p);
             break;
         }
     }
@@ -243,12 +282,28 @@ public class Lienzo2D extends javax.swing.JPanel {
            ((Curva) this.getShape()).setLocation(p);
         }
         
+        if(this.getShape() instanceof Curva2){
+           ((Curva2) this.getShape()).setLocation(p);
+        }
+        
         if(this.getShape() instanceof TrazoLibre){
             ((TrazoLibre) this.getShape()).setLocation(p);
         }
         
         if(this.getShape() instanceof CustomArea){
             ((CustomArea) this.getShape()).setLocation(p);
+        }
+        
+        if(this.getShape() instanceof RectanguloCurvo){
+            ((RectanguloCurvo) this.getShape()).setLocation(p);
+        }
+        
+        if(this.getShape() instanceof Arco){
+            ((Arco) this.getShape()).setLocation(p);
+        }
+        
+        if(this.getShape() instanceof CustomArea1){
+            ((CustomArea1) this.getShape()).setLocation(p);
         }
     }
     
@@ -297,16 +352,31 @@ public class Lienzo2D extends javax.swing.JPanel {
                 double y = this.s.getBounds2D().getY();
                 this.p.setLocation(x - this.pAux.getX(), y - this.pAux.getY());
             }
-        }else{
-            int num = evt.getClickCount();
-           
-            if(crear && pctrl == false)
-                pctrl = true;
-            else{
-                crear = false; 
-                pctrl = false;
+        }else{           
+            if(this.getShape() instanceof Curva){
+                if (crear && pctrl == false) {
+                    pctrl = true;
+                } else {
+                    crear = false;
+                    pctrl = false;
+                }
             }
                 
+            if(this.getShape() instanceof Curva2){
+                if (crear && pctrl == false) {
+                    pctrl = true;
+                } else {
+                    if(crear && pctrl && pctrl1 == false){
+                        pctrl = false;
+                        pctrl1 = true;
+                    }else{
+                        crear = false;
+                        pctrl = false;
+                        pctrl1 = false;
+                    }
+                }
+            }
+            
             this.CreateShape(pAux);
             getvShape().add(this.s);
         }
@@ -364,6 +434,11 @@ public class Lienzo2D extends javax.swing.JPanel {
      * Establecer el punto de control de la cuerva
      */
     public boolean pctrl = false;
+    
+    /**
+     * Establecer el segundo punto de control de la cuerva
+     */
+    public boolean pctrl1 = false;
     
     /**
      * Atributo del clip

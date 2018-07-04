@@ -23,7 +23,7 @@ public class VentanaInternaVideo extends javax.swing.JInternalFrame {
         initComponents();
         fMedia = f;
         EmbeddedMediaPlayerComponent aVisual = new EmbeddedMediaPlayerComponent();
-        getContentPane().add(aVisual, java.awt.BorderLayout.CENTER);
+        //getContentPane().add(aVisual, java.awt.BorderLayout.CENTER);
         vlcplayer = aVisual.getMediaPlayer();
     }
 

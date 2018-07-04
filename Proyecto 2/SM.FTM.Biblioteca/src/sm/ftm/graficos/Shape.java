@@ -278,8 +278,9 @@ public class Shape implements java.awt.Shape {
     /**
      * Dibuja la figura atendiendo a su características
      * @param g
+     * @param s
      */
-    public void draw(Graphics2D g,sm.ftm.graficos.Shape s, boolean mover){
+    public void draw(Graphics2D g,sm.ftm.graficos.Shape s){
         if(this.equals(s)){
             g.setColor(Color.BLUE);
             g.setStroke(new BasicStroke(1.0F, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{3}, 0));
@@ -313,7 +314,11 @@ public class Shape implements java.awt.Shape {
         g.draw(this);
         
         if(this instanceof CustomArea){
-            ((CustomArea) this).paint(g);
+            ((CustomArea) this).paint(g,s);
+        }
+        
+        if(this instanceof CustomArea1){
+            ((CustomArea1) this).paint(g,s);
         }
     }
     

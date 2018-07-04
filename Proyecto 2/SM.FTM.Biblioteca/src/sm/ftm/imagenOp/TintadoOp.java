@@ -10,16 +10,14 @@ import java.awt.image.WritableRaster;
 import sm.image.BufferedImageOpAdapter;
 
 /**
- * Clase que define una operación sobre la imagen, en este 
- * caso el efecto de Sepia
+ *
  * @author thejoker
  */
-public class SepiaOp extends BufferedImageOpAdapter{
-    
+public class TintadoOp extends BufferedImageOpAdapter{
     /**
      * Creates new form Sepia
      */
-    public SepiaOp(){
+    public TintadoOp(){
     }
     
     @Override

@@ -10,5 +10,5 @@ package sm.ftm.graficos;
  * @author thejoker
  */
 public enum Forma {
-    POINT, LINE, RECTANGLE, ELLIPSE, CURVE, AREA, FREE;
+    POINT, LINE, RECTANGLE, RECTANGLECURVE, ELLIPSE, CURVE, CURVE2, ARC, AREA, AREA1, FREE;
 }

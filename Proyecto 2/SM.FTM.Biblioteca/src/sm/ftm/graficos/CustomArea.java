@@ -33,11 +33,24 @@ public class CustomArea extends Shape{
         super(s);
        
         this.punto = p;
+        this.pinicial = new Point2D.Double(p.getX()-36,p.getY()-36);
         this.formainterna = new Area();
     }
     
-     
-    public void paint (Graphics2D g) {
+    /**
+     * Establezco el punto del area
+     * @param punto
+     */
+    public void setPunto(Point2D punto) {
+        this.punto = punto;
+    }
+    
+    /**
+     * Pinto mi area
+     * @param g
+     * @param s
+     */
+    public void paint (Graphics2D g, Shape s) {
         
         g.setStroke(new BasicStroke(1.0F));
         g.setPaint(Color.BLACK);
@@ -68,12 +81,29 @@ public class CustomArea extends Shape{
         rectangulo.setFrame(p, new Dimension(36,36));
         rect1 = new Area(rectangulo);
         
+        rect1.add(circ1);
+        rect1.add(circ2);
+        rect1.add(circ3);
+        rect1.add(circ4);
+        rect1.add(circ5);
+       
         g.fill(circ1);
         g.fill(circ2);
         g.fill(circ3);
         g.fill(circ4);
         g.fill(circ5);
         g.draw(rect1);
+        
+        if(this.equals(s)){
+            g.setColor(Color.BLUE);
+            g.setStroke(new BasicStroke(1.0F, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{3}, 0));
+            g.drawRect(this.rect1.getBounds().x - 2, this.rect1.getBounds().y - 2, this.rect1.getBounds().width + 4, this.rect1.getBounds().height + 4);
+        }
+    }
+    
+    @Override
+    public boolean contains(Point2D p){
+       return circ1.contains(p) || circ2.contains(p) || circ3.contains(p) || circ4.contains(p) || circ5.contains(p) || rect1.contains(p);
     }
     
     /**
@@ -81,14 +111,15 @@ public class CustomArea extends Shape{
      * @param p
      */
     public void setLocation(Point2D p) {
-       CustomArea newArea = new CustomArea((Shape) formainterna,p);
+        double dx = p.getX() - pinicial.getX();
+        double dy = p.getY() - pinicial.getY();
+        
+        Point2D punto = new Point2D.Double(p.getX() - dx, p.getY() - dy);
+        this.setPunto(punto);
     }
     
-    
-    Point2D punto;
+    Point2D punto, pinicial;
     Ellipse2D circulo;
     Rectangle2D rectangulo;
-    Area circ1, circ2, circ3, circ4, circ5, circ6, rect1;
-
-    
+    Area circ1, circ2, circ3, circ4, circ5, rect1;  
 }
