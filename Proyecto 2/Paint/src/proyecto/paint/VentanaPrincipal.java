@@ -2505,7 +2505,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             BufferedImage imgSource = vi.getLienzo2DImagen().getImg();
             
             if(imgSource != null){
-                TintOp tintado = new TintOp(Color.red,0.5f);
+                TintOp tintado = new TintOp(ButtonColorTrazo.getBackground(),0.5f);
                 tintado.filter(imgSource, imgSource);
                 vi.getLienzo2DImagen().setImg(imgSource);
                 vi.getLienzo2DImagen().repaint();
@@ -2550,7 +2550,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonEcualizacionActionPerformed
 
     private void ButtonHistogramaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonHistogramaActionPerformed
-        // TODO add your handling code here:
+        VentanaInternaImagen vi = (VentanaInternaImagen) this.getSelectedInternalWindow();
+
+        if (vi != null) {
+            Histogram h = new Histogram(vi.getLienzo2DImagen().getImg());
+            VentanaHistograma vh = new VentanaHistograma(h.getNormalizedHistogram());
+            
+            this.Desktop.add(vh);
+            vh.setVisible(true);
+        }
     }//GEN-LAST:event_ButtonHistogramaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
