@@ -135,6 +135,18 @@ public class VentanaInternaImagen extends javax.swing.JInternalFrame {
         if(this.lienzo2DImagen.getShape().getForma() == Forma.FREE)
             this.parent.ToggleButtonTrazoLibre.setSelected(true);
         
+        if(this.lienzo2DImagen.getShape().getForma() == Forma.RECTANGLECURVE)
+            this.parent.ToggleButtonRectanguloCurvo.setSelected(true);
+        
+        if(this.lienzo2DImagen.getShape().getForma() == Forma.CURVE2)
+            this.parent.ToggleButtonCurva2.setSelected(true);
+        
+        if(this.lienzo2DImagen.getShape().getForma() == Forma.ARC)
+            this.parent.ToggleButtonArco.setSelected(true);
+        
+        if(this.lienzo2DImagen.getShape().getForma() == Forma.AREA1)
+            this.parent.ToggleButtonArea1.setSelected(true);
+        
         this.parent.ToggleButtonMover.setSelected(this.lienzo2DImagen.isMover());
         
         this.parent.ButtonColorTrazo.setBackground(this.lienzo2DImagen.getShape().getColorTrazo());

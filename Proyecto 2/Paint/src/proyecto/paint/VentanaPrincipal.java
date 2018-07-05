@@ -2326,6 +2326,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             this.Desktop.add(vi);
             vi.setSize(250, 250);
             vi.setVisible(true);
+            vi.setTitle("Captura");
             vi.repaint();
         }
     }//GEN-LAST:event_ButtonCapturaActionPerformed
@@ -2629,17 +2630,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JSlider SliderUmbralizado;
     protected javax.swing.JSpinner SpinnerGrosor;
     protected javax.swing.JToggleButton ToggleButtonAlisar;
-    private javax.swing.JToggleButton ToggleButtonArco;
+    protected javax.swing.JToggleButton ToggleButtonArco;
     protected javax.swing.JToggleButton ToggleButtonArea;
-    private javax.swing.JToggleButton ToggleButtonArea1;
+    protected javax.swing.JToggleButton ToggleButtonArea1;
     protected javax.swing.JToggleButton ToggleButtonCurva;
-    private javax.swing.JToggleButton ToggleButtonCurva2;
+    protected javax.swing.JToggleButton ToggleButtonCurva2;
     protected javax.swing.JToggleButton ToggleButtonElipse;
     protected javax.swing.JToggleButton ToggleButtonLinea;
     protected javax.swing.JToggleButton ToggleButtonMover;
     protected javax.swing.JToggleButton ToggleButtonPuntos;
     protected javax.swing.JToggleButton ToggleButtonRectangulo;
-    private javax.swing.JToggleButton ToggleButtonRectanguloCurvo;
+    protected javax.swing.JToggleButton ToggleButtonRectanguloCurvo;
     protected javax.swing.JToggleButton ToggleButtonRellenoGradienteH;
     protected javax.swing.JToggleButton ToggleButtonRellenoGradienteV;
     protected javax.swing.JToggleButton ToggleButtonRellenoSimple;

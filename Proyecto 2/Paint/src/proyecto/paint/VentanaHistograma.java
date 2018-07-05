@@ -25,20 +25,18 @@ import javax.swing.JScrollPane;
 
 public class VentanaHistograma extends javax.swing.JInternalFrame{
 
-
     public VentanaHistograma(double[][] dataDouble) {
         
         Map<Double, Integer> mapHistory = new TreeMap();
+        
         for (double[] data1 : dataDouble)
-            for (int r = 0; r < data1.length; r++)
-            {
+            for (int r = 0; r < data1.length; r++){
                 double value = data1[r];
                 int amount = 0;
-                if (mapHistory.containsKey(value))
-                {
+                if (mapHistory.containsKey(value)){
                     amount = mapHistory.get(value);
                     amount++;
-                } else
+                }else
                     amount = 1;
                 mapHistory.put(value, amount);
             }
@@ -78,8 +76,6 @@ public class VentanaHistograma extends javax.swing.JInternalFrame{
                 int barWidth = Math.max(MIN_BAR_WIDTH,
                         (int) Math.floor((float) width
                         / (float) mapHistory.size()));
-                
-                
                 int maxValue = 0;
                 for (Double key : mapHistory.keySet()) {
                     int value = mapHistory.get(key);

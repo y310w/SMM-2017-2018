@@ -89,10 +89,10 @@ public class Lienzo2D extends javax.swing.JPanel {
      * 
      */
     public void EnviarFondo(){
-        if(getvShape().indexOf(this.s) != 0){
-            getvShape().add(0, this.s);
-            getvShape().remove(getvShape().size() - 1);
-        }
+        if(getvShape().indexOf(this.s) != 0)
+            Collections.swap(getvShape(), getvShape().indexOf(this.s), 0);
+            
+        this.repaint();
     }
     
     /**
@@ -100,10 +100,10 @@ public class Lienzo2D extends javax.swing.JPanel {
      * 
      */
     public void EnviarFrente(){
-        if(getvShape().indexOf(this.s) != getvShape().size() - 1){
-            getvShape().add(this.s);
-            getvShape().remove(0);
-        }
+        if(getvShape().indexOf(this.s) != getvShape().size() - 1)
+            Collections.swap(getvShape(), getvShape().indexOf(this.s), getvShape().size()-1);
+        
+        this.repaint();
     }
     
     /**
@@ -113,6 +113,8 @@ public class Lienzo2D extends javax.swing.JPanel {
     public void EnviarAtras(int index){
         if(index > 0)
             Collections.swap(getvShape(), index, index-1);
+        
+        this.repaint();
     }
     
     /**
@@ -122,6 +124,8 @@ public class Lienzo2D extends javax.swing.JPanel {
     public void EnviarAdelante(int index){
         if(index < getvShape().size()-1)
             Collections.swap(getvShape(), index, index+1);
+        
+        this.repaint();
     }
     
     /**

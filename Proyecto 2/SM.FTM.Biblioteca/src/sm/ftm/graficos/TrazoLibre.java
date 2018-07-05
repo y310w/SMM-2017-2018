@@ -44,8 +44,16 @@ public class TrazoLibre extends Shape{
         
         double dinicialx = p.getX() - pinicial.getX();
         double dinicialy = p.getY() - pinicial.getY();
-        double dfinx = pfin.getX() - pinicial.getX();
-        double dfiny = pfin.getY() - pinicial.getY();
+        double dfinx;
+        double dfiny;
+        
+        if(pinicial.distance(pfin) <= 5.0){
+            dfinx = pfin.getX() - 2*pinicial.getX();
+            dfiny = pfin.getY() - 2*pinicial.getY();
+        }else{
+            dfinx = pfin.getX() - 2*((GeneralPath) this.formainterna).getBounds().width;
+            dfiny = pfin.getY() - 2*((GeneralPath) this.formainterna).getBounds().height;
+        }
         
         ((GeneralPath) this.formainterna).transform(AffineTransform.getTranslateInstance(dinicialx - dfinx,dinicialy - dfiny));
     }

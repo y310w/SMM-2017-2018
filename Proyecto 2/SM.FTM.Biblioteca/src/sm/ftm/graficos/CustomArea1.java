@@ -30,7 +30,6 @@ public class CustomArea1 extends Shape{
         this.punto = p;
         this.pinicial = new Point2D.Double(p.getX()-9,p.getY()-9);
         this.formainterna = new Area();
-        rect = new Rectangle2D.Double(pinicial.getX(), pinicial.getY(), 48, 48);
     }
     
     /**
@@ -47,13 +46,6 @@ public class CustomArea1 extends Shape{
      * @param s
      */
     public void paint (Graphics2D g, Shape s) {
-        
-        if(this.equals(s)){
-            g.setColor(Color.BLUE);
-            g.setStroke(new BasicStroke(1.0F, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{3}, 0));
-            g.drawRect(this.rect.getBounds().x - 2, this.rect.getBounds().y - 2, this.rect.getBounds().width + 4, this.rect.getBounds().height + 4);
-        }
-        
         g.setStroke(new BasicStroke(1.0F));
         
         circulo = new Ellipse2D.Double(); 
@@ -75,6 +67,14 @@ public class CustomArea1 extends Shape{
         g.draw(circ2);
         g.setPaint(Color.BLUE);
         g.draw(circ3);
+        
+        rect = new Rectangle2D.Double(p.getX() - 20, p.getY() - 20, 50, 50);
+        
+        if(this.equals(s)){
+            g.setColor(Color.BLUE);
+            g.setStroke(new BasicStroke(1.0F, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{3}, 0));
+            g.drawRect(this.rect.getBounds().x - 2, this.rect.getBounds().y - 2, this.rect.getBounds().width + 4, this.rect.getBounds().height + 4);
+        }
     }
     
     @Override
@@ -90,7 +90,10 @@ public class CustomArea1 extends Shape{
         double dx = p.getX() - pinicial.getX();
         double dy = p.getY() - pinicial.getY();
         
-        Point2D punto = new Point2D.Double(p.getX() - dx, p.getY() - dy);
+        double dfinx = pinicial.getX() - this.rect.getBounds().width/2;
+        double dfiny = pinicial.getY() - this.rect.getBounds().height/2;
+        
+        Point2D punto = new Point2D.Double(dx + 2*dfinx, dy + 2*dfiny);
         this.setPunto(punto);
     }
     

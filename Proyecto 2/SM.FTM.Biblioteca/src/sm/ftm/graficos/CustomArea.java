@@ -8,16 +8,11 @@ package sm.ftm.graficos;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
-import java.awt.geom.Dimension2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.awt.geom.Line2D;
 
 /**
  *
@@ -114,7 +109,10 @@ public class CustomArea extends Shape{
         double dx = p.getX() - pinicial.getX();
         double dy = p.getY() - pinicial.getY();
         
-        Point2D punto = new Point2D.Double(p.getX() - dx, p.getY() - dy);
+        double dfinx = pinicial.getX() - this.rect1.getBounds().width/2;
+        double dfiny = pinicial.getY() - this.rect1.getBounds().height/2;
+        
+        Point2D punto = new Point2D.Double(dx + 2*dfinx, dy + 2*dfiny);
         this.setPunto(punto);
     }
     
