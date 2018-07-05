@@ -15,12 +15,13 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 /**
- *
+ * Clase Area que hereda de Shape
  * @author thejoker
  */
 public class CustomArea extends Shape{
     
     /**
+     * Crea la Area
      * @param s
      * @param p
      */
@@ -116,8 +117,23 @@ public class CustomArea extends Shape{
         this.setPunto(punto);
     }
     
+    /**
+     * Punto de creación de la figura y punto inicial
+     */
     Point2D punto, pinicial;
+    
+    /**
+     * Figura circulo
+     */
     Ellipse2D circulo;
+    
+    /**
+     * Figura rectangulo
+     */
     Rectangle2D rectangulo;
+    
+    /**
+     * Areas para crear el area
+     */
     Area circ1, circ2, circ3, circ4, circ5, rect1;  
 }

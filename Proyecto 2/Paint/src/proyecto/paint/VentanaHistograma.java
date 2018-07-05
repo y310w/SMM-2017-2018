@@ -17,14 +17,17 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-
 /**
- *
+ * Clase de la ventana interna asociada al histograma
+ * Código extraido de: https://stackoverflow.com/questions/12518496/drawing-a-graphical-histogram
  * @author thejoker
  */
-
 public class VentanaHistograma extends javax.swing.JInternalFrame{
 
+    /**
+     * Establece los valores al map
+     * @param dataDouble
+     */
     public VentanaHistograma(double[][] dataDouble) {
         
         Map<Double, Integer> mapHistory = new TreeMap();
@@ -48,11 +51,18 @@ public class VentanaHistograma extends javax.swing.JInternalFrame{
         frame.setVisible(true);
     }
 
+    /**
+     * Clase JPanel para crear el gráfico
+     */
     protected class Graph extends JPanel {
 
         protected static final int MIN_BAR_WIDTH = 4;
         private Map<Double, Integer> mapHistory;
 
+        /**
+         * Ventana para crear la gráfica
+         * @param mapHistory
+         */
         public Graph(Map<Double, Integer> mapHistory) {
             this.mapHistory = mapHistory;
             int width = (mapHistory.size() * MIN_BAR_WIDTH) + 11;

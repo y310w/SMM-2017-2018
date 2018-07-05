@@ -10,12 +10,13 @@ import java.awt.geom.CubicCurve2D;
 import java.awt.geom.Point2D;
 
 /**
- *
+ * Clase curva con dos puntos de control que hereda de Shape
  * @author thejoker
  */
 public class Curva2 extends Shape{
+    
     /**
-     * Creates new form Curva
+     * Creates new form Curva2
      * @param s
      */
     public Curva2(Shape s) {
@@ -24,7 +25,7 @@ public class Curva2 extends Shape{
     }
     
     /**
-     * Creates new form Curva
+     * Creates new form Curva2
      * @param s
      * @param p
      */

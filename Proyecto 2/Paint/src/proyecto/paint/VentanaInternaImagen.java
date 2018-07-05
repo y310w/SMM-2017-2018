@@ -18,7 +18,7 @@ import sm.ftm.ui.Lienzo2DImagen;
 import sm.ftm.graficos.Forma;
 
 /**
- *
+ * Clase de la ventana interna asociada al lienzo
  * @author thejoker
  */
 public class VentanaInternaImagen extends javax.swing.JInternalFrame {

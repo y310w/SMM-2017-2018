@@ -58,7 +58,7 @@ import sm.sound.SMRecorder;
 import sm.sound.SMSoundRecorder;
 
 /**
- *
+ * Clase de la ventana principal
  * @author thejoker
  */
 public class VentanaPrincipal extends javax.swing.JFrame {

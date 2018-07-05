@@ -5,10 +5,8 @@
  */
 package sm.ftm.graficos;
 
-import java.awt.Dimension;
 import java.awt.geom.Point2D;
 import java.awt.geom.QuadCurve2D;
-import java.awt.geom.Rectangle2D;
 
 /**
  * Clase curva que hereda de Shape

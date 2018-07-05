@@ -14,7 +14,6 @@ import java.awt.image.BufferedImage;
 /**
  * Clase que hereda de Lienzo2D y agrega las funciones necesarias 
  * para asignar una imagen al lienzo y poder pintar en ella.
- * 
  * @author thejoker
  */
 public class Lienzo2DImagen extends Lienzo2D {

@@ -83,3 +83,7 @@ Proyecto/javadoc/package-list
 Proyecto/javadoc/stylesheet\.css
 
 *.pages
+
+Proyecto/UMLDiagrams/umlproject
+
+Proyecto/Diagramas/umlproject

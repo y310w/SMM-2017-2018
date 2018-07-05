@@ -10,13 +10,13 @@ import java.awt.geom.Point2D;
 import java.awt.geom.RoundRectangle2D;
 
 /**
- *
+ * Clase rectangulo redondeado que hereda de Shape
  * @author thejoker
  */
 public class RectanguloCurvo extends Shape{
 
     /**
-     * Creates new form Rectangulo
+     * Creates new form RectanguloCurvo
      * @param s
      */
     public RectanguloCurvo(sm.ftm.graficos.Shape s){
@@ -25,7 +25,7 @@ public class RectanguloCurvo extends Shape{
     }
     
     /**
-     * Creates new form Rectangulo
+     * Creates new form RectanguloCurvo
      * @param s
      * @param pi
      * @param pf

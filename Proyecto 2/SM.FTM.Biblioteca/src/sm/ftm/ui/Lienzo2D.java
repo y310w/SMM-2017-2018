@@ -17,7 +17,6 @@ import java.util.Collections;
 
 /**
  * Clase para pintar las figuras con sus atributos
- * 
  * @author thejoker
  */
 public class Lienzo2D extends javax.swing.JPanel {
@@ -86,7 +85,6 @@ public class Lienzo2D extends javax.swing.JPanel {
      
     /**
      * Envia la figura a la primera posición del vector
-     * 
      */
     public void EnviarFondo(){
         if(getvShape().indexOf(this.s) != 0)
@@ -97,7 +95,6 @@ public class Lienzo2D extends javax.swing.JPanel {
     
     /**
      * Envia la figura a la última posición del vector
-     * 
      */
     public void EnviarFrente(){
         if(getvShape().indexOf(this.s) != getvShape().size() - 1)

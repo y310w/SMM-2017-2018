@@ -9,7 +9,6 @@ import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import proyecto.paint.VentanaPrincipal;
 
 /**
  * Clase de la ventana interna asociada a la camara
