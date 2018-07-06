@@ -2312,6 +2312,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
          
         this.Desktop.add(vi);
         vi.setSize(500,500);
+        vi.setTitle("Webcam");
         vi.setVisible(true);
     }//GEN-LAST:event_ToggleButtonWebcamActionPerformed
 
