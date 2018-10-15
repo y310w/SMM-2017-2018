@@ -1284,11 +1284,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonTriActionPerformed
 
     private void camarabuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_camarabuttonActionPerformed
-        VentanaInternaCamara vi = VentanaInternaCamara.getInstance();
+        VentanaInternaCamara vinterna = VentanaInternaCamara.getInstance();
          
-        this.Desktop.add(vi);
-        vi.setSize(500,500);
-        vi.setVisible(true);
+        this.Desktop.add(vinterna);
+        vinterna.setSize(500,500);
+        vinterna.setVisible(true);
     }//GEN-LAST:event_camarabuttonActionPerformed
 
     private void CapturaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CapturaButtonActionPerformed
